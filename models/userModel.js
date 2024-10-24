@@ -37,38 +37,38 @@ const userSchema = new Schema({
         }
     },
       // Freelancer-specific fields
-  skills: [{
-    type: String,
-    required: function () { return this.userType === 'contractor'; }
-  }],
-  portfolioLinks: [{
-    type: String,
-    required: function () { return this.userType === 'contractor'; }
-  }],
-  
-  // Client-specific fields
-  budgetRange: {
-    type: String,
-    required: function () { return this.userType === 'client'; }
-  },
-  
-  jobsPosted: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Job',
-    required: function () { return this.userType === 'client'; }
-  }],
-  jobsAccepted: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Job',
-    required: function () { return this.userType === 'contractor'; }
-  }],
-  
-  // Common fields
-  reviews: [{
-    reviewer: { type: Schema.Types.ObjectId, ref: 'User' },
-    rating: { type: Number, required: true },
-    comment: { type: String, default: '' }
-  }],
+    skills: [{
+        type: String,
+        required: function () { return this.userType === 'contractor'; }
+    }],
+    portfolioLinks: [{
+        type: String,
+        required: function () { return this.userType === 'contractor'; }
+    }],
+    
+    // Client-specific fields
+    budgetRange: {
+        type: String,
+        required: function () { return this.userType === 'client'; }
+    },
+    
+    jobsPosted: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Job',
+        required: function () { return this.userType === 'client'; }
+    }],
+    jobsAccepted: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Job',
+        required: function () { return this.userType === 'contractor'; }
+    }],
+    
+    // Common fields
+    reviews: [{
+        reviewer: { type: Schema.Types.ObjectId, ref: 'User' },
+        rating: { type: Number, required: true },
+        comment: { type: String, default: '' }
+    }],
 
 //   createdAt: { type: Date, default: Date.now },
 //   updatedAt: { type: Date, default: Date.now }
