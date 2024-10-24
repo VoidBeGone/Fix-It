@@ -22,7 +22,7 @@ export default function ServicePage({keepServicePage}){
             keepServicePage();
           }
         };
-    
+        
         if (!serviceSchedule) {
           document.addEventListener("mousedown", onClicked);
         }
