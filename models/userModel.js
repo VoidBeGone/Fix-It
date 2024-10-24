@@ -21,7 +21,6 @@ const userSchema = new Schema({
     },
     profile: {
         name: {
-            type: String,
             required: true
         },
         bio: {
@@ -33,47 +32,47 @@ const userSchema = new Schema({
             type: String,
             required: true 
         },
-        organizationId: {
-            type: Schema.Type.ObjectId, ref: 'Organization'
-        },
-        budgetRange: {
-            type: Number,
-            min: 10,
-            max: 99999,
-            required: function () { return this.userType === 'client'; }
-          }
+        organization: {
+            type: String
+        }
     },
-// Freelancer-specific fields
-  skills: [{
-    type: String,
-    required: function () { return this.userType === 'contractor'; }
-  }],
-  portfolioLinks: [{
-    type: String,
-    required: function () { return this.userType === 'contractor'; }
-  }],
-  
-  // Client-specific fields
-
-  jobsPosted: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Job',
-    required: function () { return this.userType === 'client'; }
-  }],
-  jobsAccepted: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Job',
-    required: function () { return this.userType === 'contractor'; }
-  }],
-  
-  // Common fields
-  reviews: [{
-    type: Schema.Types.ObjectId, ref: 'Review'
-  }],
+      // Freelancer-specific fields
+    skills: [{
+        type: String,
+        required: function () { return this.userType === 'contractor'; }
+    }],
+    portfolioLinks: [{
+        type: String,
+        required: function () { return this.userType === 'contractor'; }
+    }],
+    
+    // Client-specific fields
+    budgetRange: {
+        type: String,
+        required: function () { return this.userType === 'client'; }
+    },
+    
+    jobsPosted: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Job',
+        required: function () { return this.userType === 'client'; }
+    }],
+    jobsAccepted: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Job',
+        required: function () { return this.userType === 'contractor'; }
+    }],
+    
+    // Common fields
+    reviews: [{
+        reviewer: { type: Schema.Types.ObjectId, ref: 'User' },
+        rating: { type: Number, required: true },
+        comment: { type: String, default: '' }
+    }],
 
 //   createdAt: { type: Date, default: Date.now },
 //   updatedAt: { type: Date, default: Date.now }
 
 }, {timestamps: false})
 //export the parts schema to the Parts collection
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('User', UsersSchema)
