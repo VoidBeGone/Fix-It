@@ -1,0 +1,62 @@
+.SearchPage {
+    margin-top: 180px; 
+    padding: 20px;
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SearchPageContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position:relative;
+}
+
+.SearchPageContentContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.SPCCTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.SPCCHor{
+    display:flex;
+    flex-direction:row;
+    align-items:flex-start;
+}
+
+
+.SPCCImage {
+    width: 150px;
+    height: 150px;
+    background-color: #ccc;
+    margin-bottom: 10px;
+    flex-shrink:0;
+}
+
+.SPCCDescription {
+    display: flex;
+    flex-grow:1;
+    align-items: center;
+    font-size: 16px;
+    padding-left: 20px;
+}
+
+.SearchPageContentContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+

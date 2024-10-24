@@ -1,0 +1,157 @@
+/* Home Page Container */
+.Home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+  }
+  
+  .HomeContainer {
+    text-align: center;
+    padding: 50px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.2);
+
+  }
+  
+  .HomeTitle {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .AddressForm {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .AddressInput {
+    width: 250px;
+    padding: 10px;
+    font-size: 1.2em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .DeliverNowDropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .DropdownButton {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: white;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .DropdownMenu {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 5px;
+  }
+  
+  .DropdownItem {
+    padding: 10px 20px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .DropdownItem:hover {
+    background-color: #f5f5f5;
+  }
+  
+
+  .SearchButton {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+  }
+  
+
+  .SignIn {
+    margin-top: 10px;
+    font-size: 1em;
+  }
+  
+  .SignIn a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+  
+
+  .ModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .ModalContent {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .CloseButton {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+  }
+  
+  .TimeSelection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .ScheduleButton,
+  .DeliverNowButton {
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 1.2em;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  .ScheduleButton {
+    background-color: black;
+    color: white;
+  }
+  
+  .DeliverNowButton {
+    background-color: #f5f5f5;
+    color: black;
+  }
+  
