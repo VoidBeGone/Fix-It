@@ -39,11 +39,11 @@ const userSchema = new Schema({
       // Freelancer-specific fields
   skills: [{
     type: String,
-    required: function () { return this.userType === 'freelancer'; }
+    required: function () { return this.userType === 'contractor'; }
   }],
   portfolioLinks: [{
     type: String,
-    required: function () { return this.userType === 'freelancer'; }
+    required: function () { return this.userType === 'contractor'; }
   }],
   
   // Client-specific fields
@@ -60,7 +60,7 @@ const userSchema = new Schema({
   jobsAccepted: [{
     type: Schema.Types.ObjectId,
     ref: 'Job',
-    required: function () { return this.userType === 'freelancer'; }
+    required: function () { return this.userType === 'contractor'; }
   }],
   
   // Common fields
