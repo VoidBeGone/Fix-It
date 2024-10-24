@@ -21,6 +21,7 @@ const userSchema = new Schema({
     },
     profile: {
         name: {
+            type: String,
             required: true
         },
         bio: {
@@ -75,4 +76,4 @@ const userSchema = new Schema({
 
 }, {timestamps: false})
 //export the parts schema to the Parts collection
-module.exports = mongoose.model('User', UsersSchema)
+module.exports = mongoose.model('User', userSchema)
