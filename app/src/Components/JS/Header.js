@@ -49,7 +49,7 @@ function Header({backHome,setAuth, resetAuth}) {
         <div>
             {login && <SignInForm resetLogin = {resetLogin}/>}
             {signin && <SignUpForm resetSignup = {resetSignUp}/>}
-            {popOutClicked && <MenuPopOut resetPopOut={resetPopOut} />}
+            {popOutClicked && <MenuPopOut resetPopOut={resetPopOut} login = {login} signin = {signin} setLogin = {setLogin} resetLogin = {resetLogin} setSignup = {setSignUp} resetSignUp = {resetSignUp}/>}
             <div className="Header">
                 <div className="HeaderLeft">
                     <div className="headerMenu" onClick={setPopOut}></div>

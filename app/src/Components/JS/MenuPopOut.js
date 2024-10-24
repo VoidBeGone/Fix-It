@@ -1,7 +1,10 @@
 import React from "react";
 import "../style/MenuPopOut.css";
 
-export default function MenuPopOut({ resetPopOut }) {
+import SignInForm from "./SignInForm.js"
+import SignUpForm from "./SignUpForm.js";
+
+export default function MenuPopOut({resetPopOut, login, signin, setLogin, resetLogin, setSignup, resetSignUp }) {
     const modelRef = React.useRef();
 
     React.useEffect(() => {
@@ -10,22 +13,32 @@ export default function MenuPopOut({ resetPopOut }) {
                 resetPopOut();
             }
         };
-
-        document.addEventListener("mousedown", handleClickOutside);
+        if(!login && !signin){
+            document.addEventListener("mousedown", handleClickOutside);
+        }
 
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [resetPopOut]);
 
+    React.useEffect(()=>{
+        if (login || signin){
+            resetPopOut();
+        }
+    },[login, signin]);
     return (
-        <div className="MenuPopOut" ref={modelRef}>
-            <div className="MenuPopOutContainer">
-                <div className="MPOSignIn">SignIn</div>
-                <div className="MPOLogIn">LogIn</div>
+        <div>
+             {login && <SignInForm resetLogin = {resetLogin}/>}
+             {signin && <SignUpForm resetSignup = {resetSignUp}/>}
+             <div className="MenuPopOut" ref={modelRef}>
+             <div className="MenuPopOutContainer">
+                <div className="MPOSignIn" onClick={setSignup}>SignUp</div>
+                <div className="MPOLogIn" onClick={setLogin}>LogIn</div>
                 <div className="MPOHistory">History</div>
                 <div className="MPOService">Services</div>
                 <div className="MPOAddService">Add Service</div>
+            </div>
             </div>
         </div>
     );

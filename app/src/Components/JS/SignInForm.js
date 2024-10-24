@@ -3,9 +3,24 @@ import "../style/SignInForm.css";
 
 
 function SignInForm({resetLogin}) {
+    const modelRef = React.useRef();
+    
+    React.useEffect(()=>{
+        const onClick = (event) =>{
+            if (modelRef && !modelRef.current.contains(event.target)){
+                resetLogin();
+            }
+        };
+        document.addEventListener("mousedown", onClick);
+
+        return() =>{
+            document.removeEventListener("mousedown", onClick);
+        };
+    },[resetLogin]);
+
     return (
-        <div className="SignInContainer">
-            <div className="SignInBox">
+        <div className="SignInContainer" >
+            <div className="SignInBox" ref={modelRef}>
                 <h2>Sign In</h2>
                 <form action="/signIn" onSubmit={resetLogin}>
                     <div className="SignInInput">
@@ -18,9 +33,8 @@ function SignInForm({resetLogin}) {
                         <input type="password" id="password" name="password" required></input>
                     </div>
 
-                    <button type="submit" className="SignInBt">Sign In</button>
+                    <button type="submit" className="SignInBtn">Sign In</button>
 
-                    <p className="signup-link">Don't have an account? <a href="/signup">Sign up here</a>.</p>
                 </form>
             </div>
         </div>

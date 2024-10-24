@@ -3,9 +3,24 @@ import "../style/SignUpForm.css";
 
 
 function SignUpForm({resetSignup}) {
+    const modelRef = React.useRef();
+    
+    React.useEffect(()=>{
+        const onClick = (event) =>{
+            if (modelRef && !modelRef.current.contains(event.target)){
+                resetSignup();
+            }
+        };
+        document.addEventListener("mousedown", onClick);
+
+        return() =>{
+            document.removeEventListener("mousedown", onClick);
+        };
+    },[resetSignup]);
+
     return (
         <div className="SignUpContainer">
-            <div className="SignUpBox">
+            <div className="SignUpBox" ref={modelRef}>
                 <h2>Sign Up</h2>
                 <form action="/signUp" onSubmit={resetSignup}>
                     <div className="SignUpInput">
@@ -38,7 +53,7 @@ function SignUpForm({resetSignup}) {
                         <input type="password" id="confirmPassword" name="confirmPassword" required></input>
                     </div>
 
-                    <button type="submit" className="SignUpBtn">Sign In</button>
+                    <button type="submit" className="SignUpBtn">Sign Up</button>
                 </form>
             </div>
         </div>

@@ -65,18 +65,3 @@ h2 {
     background-color: #17a860;
 }
 
-.signup-link {
-    margin-top: 15px;
-    font-size: 14px;
-    text-align: center;
-    color: #555;
-}
-
-.signup-link a {
-    color: #1dbf73;
-    text-decoration: none;
-}
-
-.signup-link a:hover {
-    text-decoration: underline;
-}
