@@ -1,6 +1,8 @@
 import React from "react";
 import "../style/SearchPage.css";
 import Header from "./Header.js"
+import ServicePage from "./ServicePage.js";
+
 export default function SearchPage({ searched }) {
     const description = `Description: "The quick brown fox jumps over the lazy dog, 
     showcasing the agility and grace of its movements. 
@@ -11,13 +13,23 @@ export default function SearchPage({ searched }) {
     The fox pauses for a moment, glancing back as if inviting you to 
     join it on its journey into the twilight."`;
     
+    const [serviceClicked, setServiceClicked] = React.useState(false);
+
+    const setterServiceClick =  () =>{
+        setServiceClicked(true);
+    }
+
+    const resetServiceClick = () =>{
+        setServiceClicked(false);
+    };
     return (
         <div>
             <Header/>
+            {serviceClicked && <ServicePage keepServicePage= {resetServiceClick}/>}
             <div className="SearchPage">
                 <div className="SearchPageContainer">
                     <div className="SearchPageContent">
-                        <div className="SearchPageContentContainer">
+                        <div className="SearchPageContentContainer" onClick ={setterServiceClick}>
                             <div className="SPCCTitle">Title</div>
                             <div className="SPCCHor">
                                 <div className="SPCCImage"></div>

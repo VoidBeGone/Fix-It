@@ -7,6 +7,7 @@ import SearchPage from "./Components/JS/SearchPage.js";
 import SearchBar from "./Components/JS/SearchBar.js";
 import FastCube from "./Components/JS/FastCube.js";
 
+
 function App() {
   const [searched, setSearched] = React.useState(false);
 
@@ -21,7 +22,7 @@ function App() {
    <SearchBar searched="hello" onSearchSubmit={handleSearchSubmit} />
     {searched && <SearchPage searched = "hello"/>}
   </div>
-   
+
   );
 }
 
@@ -30,5 +31,7 @@ export default App;
 
 /*
 
-   {/*
+   
+
+
    */

@@ -1,0 +1,95 @@
+.ServicePage{
+    background-color:transparent;
+    width:100%;
+    height:100%;
+    position:fixed;
+    display:flex;
+    text-align:center;
+    justify-content: center; 
+    z-index:5;
+    overflow: hidden;
+}
+
+.ServicePageContainer{
+    background-color:rgb(224, 223, 223);
+    margin:100px;
+    width:60%;
+    display:flex;
+    align-items:center;
+    flex-direction:column;
+    box-shadow:2px 4px 2px rgb(0,0,0,0.2);
+    border-radius: 20px;
+    overflow:hidden;
+    height: 80vh;
+    max-height: 80vh;
+}
+
+.SPTitle{
+    padding:20px;
+    font-size:40px;
+    font-weight:bold;
+    flex-shrink:0;
+}
+
+.SPImage{
+    padding:20px;
+    width:20vw;
+    height:30vh;
+    background-color:grey;
+    flex-shrink:0;
+}
+
+.SPReviews{
+    padding:10px;
+    flex-shrink:0;
+    font-weight:bold;
+}
+
+.SPDescription {
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: scroll;
+    max-height: 30vh; 
+    width: 100%;
+    box-sizing: border-box;
+    scrollbar-width: thin; 
+    scrollbar-color: darkgray lightgray; 
+    margin-bottom:30px;
+    pointer-events: auto;
+}
+
+.SPDescription::-webkit-scrollbar {
+    width: 6px; 
+}
+
+.SPDescription::-webkit-scrollbar-thumb {
+    background-color: darkgray; 
+    border-radius: 6px; 
+}
+
+.SPDescription::-webkit-scrollbar-track {
+    background: lightgray; 
+}
+
+.SPFormButton{
+    position:relative;
+    flex-shrink:0;
+    margin-bottom:30px;
+    background-color:black;
+    border-radius:25px;
+    color:white;
+    text-align:center;
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-left:200px;
+    padding-right:200px;
+    box-shadow:2px 4px 2px rgb(0,0,0,0.2);
+    transition:color 1s ease, background-color 1s ease;
+    cursor:pointer;
+}
+
+
+.SPFormButton:hover{
+    color:black;
+    background-color:white;
+}
