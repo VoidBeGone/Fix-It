@@ -8,6 +8,7 @@
 }
 
 .MenuPopOutContainer{
+    margin-top:20px;
     display:flex;
     flex-direction: column;
     text-align:center;
@@ -15,7 +16,7 @@
 
 
 .MPOSignIn{
-    background-color:white;
+    background-color:rgb(237, 237, 237);
     color:black;
     padding:20px;
     margin:10px;

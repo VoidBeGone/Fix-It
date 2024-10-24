@@ -2,7 +2,6 @@
 import React from "react";
 import "./style/App.css";
 import './Components/JS/Header.js';
-import Header from "./Components/JS/Header.js";
 import Home from "./Components/JS/Home.js";
 import SearchPage from "./Components/JS/SearchPage.js";
 import SearchBar from "./Components/JS/SearchBar.js";
@@ -18,7 +17,6 @@ function App() {
   return (
     <div>
     <FastCube/>
-    <Header/>
     {!searched && <Home/>} 
    <SearchBar searched="hello" onSearchSubmit={handleSearchSubmit} />
     {searched && <SearchPage searched = "hello"/>}

@@ -1,12 +1,11 @@
 .SearchPage {
-    margin-top: 180px; 
+    margin-top:180px;
     padding: 20px;
-    position:relative;
+    position:fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
 .SearchPageContainer {
     width: 100%;
     display: flex;

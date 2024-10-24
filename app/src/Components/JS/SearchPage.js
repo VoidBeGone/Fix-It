@@ -1,6 +1,6 @@
 import React from "react";
 import "../style/SearchPage.css";
-
+import Header from "./Header.js"
 export default function SearchPage({ searched }) {
     const description = `Description: "The quick brown fox jumps over the lazy dog, 
     showcasing the agility and grace of its movements. 
@@ -12,19 +12,23 @@ export default function SearchPage({ searched }) {
     join it on its journey into the twilight."`;
     
     return (
-        <div className="SearchPage">
-            <div className="SearchPageContainer">
-                <div className="SearchPageContent">
-                    <div className="SearchPageContentContainer">
-                        <div className="SPCCTitle">Title</div>
-                        <div className="SPCCHor">
-                            <div className="SPCCImage"></div>
-                            <div className="SPCCDescription">{description}</div>
+        <div>
+            <Header/>
+            <div className="SearchPage">
+                <div className="SearchPageContainer">
+                    <div className="SearchPageContent">
+                        <div className="SearchPageContentContainer">
+                            <div className="SPCCTitle">Title</div>
+                            <div className="SPCCHor">
+                                <div className="SPCCImage"></div>
+                                <div className="SPCCDescription">{description}</div>
+                            </div>
+                            <div className ="SPCCReviews">5 Stars</div>
                         </div>
-                        <div className ="SPCCReviews">5 Stars</div>
                     </div>
                 </div>
-            </div>
+             </div>
         </div>
+        
     );
 }

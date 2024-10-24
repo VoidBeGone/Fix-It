@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../style/home.css";
 import ScheduleModal from "./ScheduleModal";
-
+import Header from "./Header.js";
 function Home() {
 
     //isDropDownOpen and isModalOpen are now state variables, React keeps track of there states, true or false, 
@@ -29,41 +29,45 @@ function Home() {
   };
 
   return (
-    <div className="Home">
-      <div className="HomeContainer">
-        <div className="HomeTitle">Order Service near you</div>
+    <div>
+      <Header/>
+        <div className="Home">
+        <div className="HomeContainer">
+          <div className="HomeTitle">Order Service near you</div>
 
-        <div className="AddressForm">
-          <input
-            type="text"
-            className="AddressInput"
-            placeholder="Enter delivery address"
-          />
+          <div className="AddressForm">
+            <input
+              type="text"
+              className="AddressInput"
+              placeholder="Enter delivery address"
+            />
 
-          <div className="DeliverNowDropdown">
-            <button className="DropdownButton" onClick={toggleDropdown}>
-              Schedule now ▼
-            </button>
+            <div className="DeliverNowDropdown">
+              <button className="DropdownButton" onClick={toggleDropdown}>
+                Schedule now ▼
+              </button>
 
-            {isDropdownOpen && (
-              <div className="DropdownMenu">
-                <div className="DropdownItem">Schedule now</div>
-                <div className="DropdownItem" onClick={openModal}>
-                  Schedule for later
+              {isDropdownOpen && (
+                <div className="DropdownMenu">
+                  <div className="DropdownItem">Schedule now</div>
+                  <div className="DropdownItem" onClick={openModal}>
+                    Schedule for later
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
+
+            <button className="SearchButton">Search here</button>
           </div>
 
-          <button className="SearchButton">Search here</button>
+          <div className="SignIn">
+            Or <a href="#">Sign In</a>
+          </div>
+          {isModalOpen && <ScheduleModal closeModal={closeModal} />}
         </div>
-
-        <div className="SignIn">
-          Or <a href="#">Sign In</a>
-        </div>
-        {isModalOpen && <ScheduleModal closeModal={closeModal} />}
       </div>
     </div>
+    
   );
 }
 
