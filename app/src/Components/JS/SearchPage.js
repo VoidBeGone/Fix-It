@@ -1,6 +1,5 @@
 import React from "react";
 import "../style/SearchPage.css";
-import Header from "./Header.js"
 import ServicePage from "./ServicePage.js";
 
 export default function SearchPage({ searched }) {
@@ -24,7 +23,6 @@ export default function SearchPage({ searched }) {
     };
     return (
         <div>
-            <Header/>
             {serviceClicked && <ServicePage keepServicePage= {resetServiceClick}/>}
             <div className="SearchPage">
                 <div className="SearchPageContainer">

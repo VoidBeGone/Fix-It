@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "../style/home.css";
 import ScheduleModal from "./ScheduleModal";
-import Header from "./Header.js";
+
+
 function Home() {
 
     //isDropDownOpen and isModalOpen are now state variables, React keeps track of there states, true or false, 
@@ -30,7 +31,6 @@ function Home() {
 
   return (
     <div>
-      <Header/>
         <div className="Home">
         <div className="HomeContainer">
           <div className="HomeTitle">Order Service near you</div>
