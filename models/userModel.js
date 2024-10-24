@@ -33,11 +33,17 @@ const userSchema = new Schema({
             type: String,
             required: true 
         },
-        organization: {
-            type: String
-        }
+        organizationId: {
+            type: Schema.Type.ObjectId, ref: 'Organization'
+        },
+        budgetRange: {
+            type: Number,
+            min: 10,
+            max: 99999,
+            required: function () { return this.userType === 'client'; }
+          }
     },
-      // Freelancer-specific fields
+// Freelancer-specific fields
   skills: [{
     type: String,
     required: function () { return this.userType === 'contractor'; }
@@ -48,11 +54,7 @@ const userSchema = new Schema({
   }],
   
   // Client-specific fields
-  budgetRange: {
-    type: String,
-    required: function () { return this.userType === 'client'; }
-  },
-  
+
   jobsPosted: [{
     type: Schema.Types.ObjectId,
     ref: 'Job',
@@ -66,9 +68,7 @@ const userSchema = new Schema({
   
   // Common fields
   reviews: [{
-    reviewer: { type: Schema.Types.ObjectId, ref: 'User' },
-    rating: { type: Number, required: true },
-    comment: { type: String, default: '' }
+    type: Schema.Types.ObjectId, ref: 'Review'
   }],
 
 //   createdAt: { type: Date, default: Date.now },
