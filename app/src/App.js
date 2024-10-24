@@ -18,7 +18,7 @@ function App() {
     <div>
       <FastCube/>
       <Header/>
-      {!searched && <Home/>}
+      {!searched && <Home/>} 
      <SearchBar searched="hello" onSearchSubmit={handleSearchSubmit} />
       {searched && <SearchPage searched = "hello"/>}
     </div>
