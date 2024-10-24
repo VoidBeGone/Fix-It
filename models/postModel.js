@@ -32,7 +32,7 @@ const postSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ['open', 'accpeted', 'in progress', 'completed'],
+        enum: ['open', 'accepted', 'in progress', 'completed'],
         required: true
     },
     postedDate: {
@@ -46,27 +46,12 @@ const postSchema = new Schema({
     contractor: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true,
     },
     jobReview: [{
-        reviewer: {
-            type: Schema.Types.ObjectId,
-            ref: 'User',
-            required: true
-        },
-        rating: {
-            type: Number,
-            required: true
-        },
-        comment: {
-            type: String,
-            default: ''
-        },
-        date: {
-            type: Date,
-            default: Date.now
-        }
+        type: Schema.Types.ObjectId,
+        ref: 'Review',
+        required: true
     }]
-}, {timestamps: false})
+})
 //export the parts schema to the Parts collection
-module.exports = mongoose.model('Parts', partsSchema)
+module.exports = mongoose.model('Post', postSchema)
