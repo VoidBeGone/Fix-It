@@ -83,17 +83,6 @@
     cursor: pointer;
   }
   
-
-  .SignIn {
-    margin-top: 10px;
-    font-size: 1em;
-  }
-  
-  .SignIn a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-  }
   
 
   .ModalOverlay {

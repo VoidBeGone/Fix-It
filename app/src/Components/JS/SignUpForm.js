@@ -2,12 +2,12 @@ import React from "react";
 import "../style/SignUpForm.css";
 
 
-function SignUpForm() {
+function SignUpForm({resetSignup}) {
     return (
         <div className="SignUpContainer">
             <div className="SignUpBox">
                 <h2>Sign Up</h2>
-                <form action="/signUp" method="POST">
+                <form action="/signUp" onSubmit={resetSignup}>
                     <div className="SignUpInput">
                         <label for="fName">First Name</label>
                         <input type="text" id="fName" name="fName" required></input>

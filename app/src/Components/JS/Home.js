@@ -59,10 +59,7 @@ function Home() {
 
             <button className="SearchButton">Search here</button>
           </div>
-
-          <div className="SignIn">
-            Or <a href="#">Sign In</a>
-          </div>
+          
           {isModalOpen && <ScheduleModal closeModal={closeModal} />}
         </div>
       </div>
