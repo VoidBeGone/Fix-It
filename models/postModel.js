@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 //Schema defines the defines the structure of the documents saved to the collection
 const postSchema = new Schema({
-    contractorId: { type: String, required},
-    title: { type: String, required },
-    description: { type: String, required },
+    contractorId: { type: String, required: true},
+    title: { type: String, required: true },
+    description: { type: String, required: true },
     finalDate: {type: Date},
-    price: { type: Number, required },
+    price: { type: Number, required: true },
     status: {
         type: String,
         enum: ['submitted','pending', 'accepted', 'completed']
