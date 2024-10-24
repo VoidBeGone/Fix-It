@@ -1,0 +1,64 @@
+.MenuPopOut{
+    position:fixed;
+    width:15%;
+    height:100%;
+    background-color:white;
+    z-index:2000;
+    box-shadow:1px 2px 1px rgb(0,0,0,0.2);
+}
+
+.MenuPopOutContainer{
+    display:flex;
+    flex-direction: column;
+    text-align:center;
+}
+
+
+.MPOSignIn{
+    background-color:white;
+    color:black;
+    padding:20px;
+    margin:10px;
+    border-radius:20px;
+    box-shadow:2px 3px 2px rgb(0,0,0,0.3);
+    cursor:pointer;
+    transition: background-color 1s ease;
+}
+.MPOSignIn:hover{
+    background-color:rgb(207, 207, 207);
+    color:rgb(0, 0, 0);
+}
+
+.MPOLogIn{
+    background-color:black;
+    padding:20px;
+    color:white;
+    margin:10px;
+    border-radius:20px;
+    box-shadow:2px 3px 2px rgb(0,0,0,0.3);
+    cursor:pointer;
+    transition: background-color 1s ease;
+}
+
+.MPOLogIn:hover{
+    background-color:rgb(79, 79, 79);
+}
+
+.MPOService, .MPOHistory, .MPOAddService{
+    text-align:left;
+    margin-left:10px;
+    font-size:18px;
+    margin-top:7px;
+    margin-bottom:7px;
+    margin-right:7px;
+    cursor:pointer;
+    transition: background-color 0.5s ease, padding 0.5s ease, border-radius 0.5s ease, box-shadow 0.5s ease;
+
+}
+
+.MPOService:hover, .MPOHistory:hover, .MPOAddService:hover{
+    padding:5px;
+    background-color:rgb(215, 215, 215);
+    box-shadow:1px 2px 1px rgb(0,0,0,0.1);
+    border-radius:10px;
+}
