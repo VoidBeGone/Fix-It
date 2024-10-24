@@ -55,7 +55,7 @@ function ScheduleModal({ closeModal }) {
             {/* Add more time options here */}
           </select>
         </div>
-        <button className="ScheduleButton">Schedule</button>
+        <button className="ScheduleButton" onClick = {closeModal}>Schedule</button>
         {/*when you click this then we activate closeModal right away */}
         <button className="DeliverNowButton" onClick={closeModal}>
           Schedule now

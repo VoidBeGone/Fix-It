@@ -11,12 +11,19 @@ import SignInHeader from "./Components/JS/SignInHeader.js"
 import SignInForm from "./Components/JS/SignInForm.js"
 import SignUpHeader from "./Components/JS/SignUpHeader.js";
 import SignUpForm from "./Components/JS/SignUpForm.js";
+import Header from "./Components/JS/Header.js";
 
 function App() {
-  const [searched, setSearched] = React.useState(false);
+  const [searched, setterSearched] = React.useState(false);
+  const [backhome, setterBackhome] = React.useState(true);
 
-  const handleSearchSubmit = () => {
-    setSearched(!searched); // Set searched to true when search is submitted
+  const setSearched = () => {
+    setterSearched(true); // Set searched to true when search is submitted
+    setterBackhome(false);
+  };
+  const resetSearch = () =>{
+    setterSearched(false);
+    setterBackhome(true);
   };
 
   return (
@@ -29,14 +36,15 @@ function App() {
     // </div>
 
     <div>
-      <FastCube/>
-      {!searched && <Home/>} 
-      <SearchBar searched="hello" onSearchSubmit={handleSearchSubmit} />
-      {searched && <SearchPage searched = "hello"/>}
-      <SignInHeader/>
-      <SignInForm/>
-    </div>
-    
+    <FastCube/>
+    <Header backHome = {resetSearch}/>
+    {backhome && <Home/>} 
+   <SearchBar searched="hello" onSearchSubmit={setSearched} />
+    {searched && <SearchPage searched = "hello"/>}
+    <SignInHeader/>
+    <SignInForm/>
+  </div>
+
     // <div>
     //   <SignUpHeader/>
     //   <SignUpForm/>
