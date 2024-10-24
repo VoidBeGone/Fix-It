@@ -36,7 +36,7 @@ function ScheduleModal({ closeModal }) {
   //so right now are useEffect is depended on the closeModal function
 
   return (
-    <div className="ModalOverlay">
+    <div className="ModalOverlay" >
         {/*As you can see here this is connecting back the modelRef*/}
       <div className="ModalContent" ref={modalRef}>
         <h2>Pick a time</h2>

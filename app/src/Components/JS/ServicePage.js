@@ -1,6 +1,7 @@
 import React from "react";
 import "../style/ServicePage.css";
 import Header from "./Header.js";
+import ScheduleModal from "./ScheduleModal.js";
 
 export default function ServicePage({keepServicePage}){
     const description = `Description: "The quick brown fox jumps over the lazy dog, 
@@ -27,30 +28,44 @@ export default function ServicePage({keepServicePage}){
     join it on its journey into the twilight.`;
 
     const modelRef = React.useRef();
+    const [serviceSchedule, setterServiceSchedule] = React.useState(false);
 
-    React.useEffect(()=>{
-        const onClicked = (event) =>{
-            if (modelRef && !modelRef.current.contains(event.target)){
-                keepServicePage();
-            }
+    const setServiceSchedule =() =>{
+        setterServiceSchedule(true);
+    };
+
+    const resetServiceSchedule = () =>{
+        setterServiceSchedule(false);
+    };
+
+    React.useEffect(() => {
+        const onClicked = (event) => {
+          if (modelRef.current && !modelRef.current.contains(event.target)) {
+            keepServicePage();
+          }
         };
-        document.addEventListener("mousedown", onClicked);
-
-        return () =>{
-            document.removeEventListener('mousedown', onClicked);
+    
+        if (!serviceSchedule) {
+          document.addEventListener("mousedown", onClicked);
         }
-    });
+    
+        return () => {
+          document.removeEventListener("mousedown", onClicked);
+        };
+      }, [keepServicePage, serviceSchedule]); 
+    
 
     return(
         <>
         <Header/>
+        {serviceSchedule && <ScheduleModal closeModal = {resetServiceSchedule}/>}
         <div className = "ServicePage">
             <div className="ServicePageContainer" ref={modelRef}>
                 <div className = "SPTitle">Title</div>
                 <div className = "SPImage"></div>
                 <div className = "SPReviews">5 Stars</div>
                 <div className = "SPDescription">{description}</div>
-                <div className = "SPFormButton">Schedule</div>
+                <div className = "SPFormButton" onClick={setServiceSchedule}>Schedule</div>
             </div>
         </div>
 

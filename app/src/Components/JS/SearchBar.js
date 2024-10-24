@@ -6,7 +6,6 @@ export default function Searchbar({searched, onSearchSubmit}){
 
     const handleSubmit = (event) =>{
         event.preventDefault();
-        //this is here for now to see
         onSearchSubmit();
     };
 
