@@ -5,7 +5,7 @@ import MenuPopOut from "./MenuPopOut.js";
 import SignInForm from "./SignInForm.js"
 import SignUpForm from "./SignUpForm.js";
 
-function Header({backHome,setAuth, resetAuth}) {
+function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearched}) {
     const [popOutClicked, setPopOutClicked] = React.useState(false);
     const [login, setterLogin] = React.useState(false);
     const [signin, setterSignin] = React.useState(false);
@@ -18,38 +18,51 @@ function Header({backHome,setAuth, resetAuth}) {
     };
 
     const setLogin = () => {
-        setterLogin(true);
+        if(!login){
         setterSignin(false);
+        setterLogin(true);
+        setPopOutClicked(false);
         setAuth();  
+         }
     };
 
     const resetLogin = () =>{
+        if(searched){
+            resetBackHome();
+        }
         setterLogin(false);
         resetAuth();
     };
 
     const setSignUp = () =>{
+        if (!signin){
         setterLogin(false);
+        setPopOutClicked(false);
         setterSignin(true);
         setAuth(); 
+        }
     };
 
     const resetSignUp = () =>{
         setterSignin(false);
         resetAuth();
+        if(searched){
+            resetBackHome();
+        }
     };
 
     const returnBack = () =>{
-        backHome();
+        resetSearched();
         resetLogin();
         resetSignUp();
+        setHome();
     }
 
     return (
         <div>
             {login && <SignInForm resetLogin = {resetLogin}/>}
             {signin && <SignUpForm resetSignup = {resetSignUp}/>}
-            {popOutClicked && <MenuPopOut resetPopOut={resetPopOut} login = {login} signin = {signin} setLogin = {setLogin} resetLogin = {resetLogin} setSignup = {setSignUp} resetSignUp = {resetSignUp}/>}
+            {popOutClicked && <MenuPopOut resetPopOut={resetPopOut} setLogin = {setLogin} setSignup = {setSignUp}/>}
             <div className="Header">
                 <div className="HeaderLeft">
                     <div className="headerMenu" onClick={setPopOut}></div>

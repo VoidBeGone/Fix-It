@@ -13,7 +13,6 @@ function ScheduleModal({ closeModal }) {
       duration: 0.5,
       ease: "power2.in",
       onComplete: () => {
-        // Once the background color transition is done, animate opacity and scale
         gsap.to(modalRef.current, {
           opacity: 0,
           scale: 0.9,

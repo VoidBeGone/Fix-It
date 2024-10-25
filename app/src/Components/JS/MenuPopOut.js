@@ -1,27 +1,15 @@
-import React from "react";
-import { gsap } from "gsap";
+import React, { useRef, useEffect, useCallback } from "react";
+import { gsap } from "gsap"; 
 import "../style/MenuPopOut.css";
-
 export default function MenuPopOut({
   resetPopOut,
-  login,
-  signin,
   setLogin,
-  resetLogin,
   setSignup,
-  resetSignUp,
 }) {
-  const modelRef = React.useRef();
+  const modelRef = useRef();
+  const hasAnimatedRef = useRef(false); // Track if the menu has been animated
 
-  React.useEffect(() => {
-    gsap.fromTo(
-      modelRef.current,
-      { x: "-100%" },
-      { x: "0%", duration: 0.5, ease: "power2.out" }
-    );
-  }, []); 
-
-  const handleCloseWithAnimation = () => {
+  const handleCloseWithAnimation = useCallback(() => {
     gsap.to(modelRef.current, {
       x: "-100%",
       duration: 0.5,
@@ -30,22 +18,32 @@ export default function MenuPopOut({
         resetPopOut(); 
       },
     });
-  };
+  }, [resetPopOut]); 
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (!hasAnimatedRef.current) {
+      gsap.fromTo(
+        modelRef.current,
+        { x: "-100%" }, 
+        { x: "0%", duration: 0.5, ease: "power2.out" }
+      );
+      hasAnimatedRef.current = true;
+    }
+  }, []); // No need to include `handleCloseWithAnimation` here
+
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if (modelRef.current && !modelRef.current.contains(event.target)) {
         handleCloseWithAnimation();
       }
     };
-    if (!login && !signin) {
       document.addEventListener("mousedown", handleClickOutside);
-    }
+
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [login, signin]);
+  }, [handleCloseWithAnimation]); 
 
   return (
     <div>
