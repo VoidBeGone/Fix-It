@@ -23,7 +23,7 @@ const userSchema = new Schema({
     profile: {
         name: {
             type: String, // Added type for name
-            default: this.username
+            default: ''
         },
         bio: {
             type: String,
