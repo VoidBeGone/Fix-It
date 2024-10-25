@@ -13,6 +13,7 @@ import SignUpHeader from "./Components/JS/SignUpHeader.js";
 import SignUpForm from "./Components/JS/SignUpForm.js";
 import ProfileHeader from "./Components/JS/ProfileHeader.js";
 import ProfileForm from "./Components/JS/ProfileForm.js"
+import Payment from "./Components/JS/Payment.js"; 
 
 function App() {
   const [searched, setSearched] = React.useState(false);
@@ -39,10 +40,11 @@ function App() {
     //   <SignUpHeader/>
     //   <SignUpForm/>
     // </div>
-    <div>
-      <ProfileHeader/>
-      <ProfileForm/>
-    </div>
+    // <div>
+    //   <ProfileHeader/>
+    //   <ProfileForm/>
+    // </div>
+    <Payment/>
   );
 }
 
