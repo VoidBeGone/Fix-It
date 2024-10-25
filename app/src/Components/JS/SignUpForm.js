@@ -2,11 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap"; // Import GSAP for animation
 import "../style/SignUpForm.css";
 
-function SignUpForm({ resetSignup }) {
+function SignUpForm({ resetSignup, settersignedin}) {
   const modelRef = useRef();
-  const outerSquareRef = useRef();
-  const innerHoleRef = useRef();
-
   useEffect(() => {
     const timeline = gsap.timeline();
 
@@ -31,12 +28,18 @@ function SignUpForm({ resetSignup }) {
     };
   }, [resetSignup]);
 
+  const isignedin = () =>{
+    settersignedin();
+    resetSignup();
+  }
+
+  
   return (
     <div className="SignUpContainer">
       {/* Outer square for the spinning cube effect */}
       <div className="SignUpBox" ref={modelRef}>
         <h2>Sign Up</h2>
-        <form action="/signUp" onSubmit={resetSignup}>
+        <form action="/signUp" onSubmit={isignedin}>
           <div className="SignUpInput">
             <label htmlFor="fName">First Name</label>
             <input type="text" id="fName" name="fName" required></input>

@@ -2,7 +2,7 @@ import React from "react";
 import "../style/SignInForm.css";
 import {gsap} from "gsap";
 
-function SignInForm({resetLogin}) {
+function SignInForm({resetLogin,settersignedin}) {
     const modelRef = React.useRef();
     React.useEffect(()=>{
         const timeline = gsap.timeline();
@@ -26,23 +26,26 @@ function SignInForm({resetLogin}) {
         };
     },[resetLogin]);
 
+    const isignedin = () =>{
+        settersignedin();
+        resetLogin();
+    };
     return (
-        <div className="SignInContainer" >
+        <div className="SignInContainer">
             <div className="SignInBox" ref={modelRef}>
                 <h2>Sign In</h2>
-                <form action="/signIn" onSubmit={resetLogin}>
+                <form action="/signIn" onSubmit={isignedin}>
                     <div className="SignInInput">
-                        <label for="email">Email</label>
+                        <label htmlFor="email">Email</label> {/* Corrected here */}
                         <input type="email" id="email" name="email" required></input>
                     </div>
 
                     <div className="SignInInput">
-                        <label for="password">Password</label>
+                        <label htmlFor="password">Password</label> {/* Corrected here */}
                         <input type="password" id="password" name="password" required></input>
                     </div>
 
                     <button type="submit" className="SignInBtn">Sign In</button>
-
                 </form>
             </div>
         </div>

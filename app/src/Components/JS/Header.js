@@ -4,11 +4,19 @@ import MenuPopOut from "./MenuPopOut.js";
 
 import SignInForm from "./SignInForm.js"
 import SignUpForm from "./SignUpForm.js";
-
-function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearched}) {
+import ProfileForm from "./ProfileForm.js";
+function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearched,settersignedin,signedin}) {
     const [popOutClicked, setPopOutClicked] = React.useState(false);
     const [login, setterLogin] = React.useState(false);
     const [signin, setterSignin] = React.useState(false);
+    const [profileUser, setterPU] = React.useState(false);
+
+    const setPU = () =>{
+        setterPU(true);
+    };
+    const resetPU = () =>{
+        setterPU(false);
+    };
 
     const setPopOut = () =>{
         setPopOutClicked(true);
@@ -60,8 +68,9 @@ function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearc
 
     return (
         <div>
-            {login && <SignInForm resetLogin = {resetLogin}/>}
-            {signin && <SignUpForm resetSignup = {resetSignUp}/>}
+            {profileUser && <ProfileForm resetPU={resetPU}/>}
+            {login && <SignInForm resetLogin = {resetLogin} settersignedin={settersignedin}/>}
+            {signin && <SignUpForm resetSignup = {resetSignUp} settersignedin={settersignedin}/>}
             {popOutClicked && <MenuPopOut resetPopOut={resetPopOut} setLogin = {setLogin} setSignup = {setSignUp}/>}
             <div className="Header">
                 <div className="HeaderLeft">
@@ -70,8 +79,9 @@ function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearc
                 </div>
 
                 <div className="HeaderRight">
-                    <div className="headerLogin" onClick = {setLogin}></div>
-                    <div className="headerSignUp" onClick ={setSignUp}>SignUp</div>
+                    {!signedin && <div className="headerLogin" onClick = {setLogin}>Login</div>}
+                    {signedin && <div className="Logined" onClick = {setPU}></div>}
+                    {!signedin && <div className="headerSignUp" onClick ={setSignUp}>SignUp</div>}
                 </div>
             </div>
         </div>
