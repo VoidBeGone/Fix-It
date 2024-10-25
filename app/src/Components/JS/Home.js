@@ -35,7 +35,7 @@ function Home({authentication}) {
         { opacity: 1, boxShadow:"0px 0px 0px rgba(0,0,0,0)",duration: 1, ease: "power2.out" }
       )
       .to(homeContainerRef.current, {
-        boxShadow: "2px 4px 2px rgba(0, 0, 0, 0.2)",
+        boxShadow: "2px 4px 2px rgba(0, 0, 0, 0.4)",
         duration: 1,
       });
 

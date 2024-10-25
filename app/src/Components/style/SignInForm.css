@@ -1,16 +1,15 @@
 /* Ensure that the entire page height is used */
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
 .SignInContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh; /* Full viewport height */
     background-color: #f7f7f7; /* Light background */
+    position: fixed; /* Ensure it is placed on top */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1000; /* Higher z-index to ensure it's on top */
 }
 
 .SignInBox {

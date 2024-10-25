@@ -1,16 +1,15 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
 
 .SignUpContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f7f7f7;
-    position: relative; /* Needed for absolute positioning */
+    height: 100vh; 
+    background-color: #f7f7f7; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1000; 
 }
 
 .SignUpBox {
@@ -20,8 +19,8 @@ html, body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     max-width: 400px;
     width: 100%;
-    z-index: 3; /* Higher z-index so it sits above the hole */
-    opacity: 1; /* Initially hidden */
+    z-index: 3; 
+    opacity: 1;
 }
 
 h2 {

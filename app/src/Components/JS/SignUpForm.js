@@ -14,9 +14,6 @@ function SignUpForm({ resetSignup, settersignedin}) {
 
   useEffect(() => {
     const timeline = gsap.timeline();
-
-    // GSAP animation for outer square spinning and expanding
-    // GSAP animation for the form fading in and scaling up at the same time
     timeline.fromTo(
       modelRef.current,
       { opacity: 0, scale: 0}, // Start at 0 opacity and small scale
@@ -36,7 +33,7 @@ function SignUpForm({ resetSignup, settersignedin}) {
     return () => {
       document.removeEventListener("mousedown", onClick);
     };
-  }, [resetSignup]);
+  }, []);
 
   const isignedin = () =>{
     settersignedin();

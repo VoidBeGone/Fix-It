@@ -10,6 +10,7 @@ function SignInForm({resetLogin,settersignedin}) {
             ,onComplete:x
         });
     };
+    
     React.useEffect(()=>{
         const timeline = gsap.timeline();
         timeline.fromTo(
@@ -17,9 +18,7 @@ function SignInForm({resetLogin,settersignedin}) {
             { opacity: 0, scale: 0},
             { opacity: 1, scale:1, ease:"power2.out"},
         );
-    });
-    
-    React.useEffect(()=>{
+        
         const onClick = (event) =>{
             if (modelRef && !modelRef.current.contains(event.target)){
                 animateOut(()=>{
@@ -33,7 +32,7 @@ function SignInForm({resetLogin,settersignedin}) {
         return() =>{
             document.removeEventListener("mousedown", onClick);
         };
-    },[resetLogin]);
+    },[]);
 
     const isignedin = () =>{
         settersignedin();
