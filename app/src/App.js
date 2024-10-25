@@ -15,12 +15,18 @@ function App() {
   const [authentication, setterAuth] = React.useState(false);
   const [searchedValue, setSearchValue] = React.useState("search");
   const [signedin, settersignedin] = React.useState(false);
-  const [userOrcon, setterUserOrCon] = React.useState(true);
+  const [userOrcon, setterUserOrCon] = React.useState(false);
 
-
+  const setcon = () =>{
+    setterUserOrCon(true);
+  };
+  const resetcon = ()=>{
+    setterUserOrCon(false);
+  }
   const setsignin = () =>{
     settersignedin(true);
   };
+
   const resetSearched = () =>{
     setterSearched(false);
   };
@@ -46,11 +52,11 @@ function App() {
   return (
     <div>
     <FastCube/>
-    <Header setHome={setHome }setAuth={setAuth} resetAuth ={resetAuth} resetBackHome={resetBackHome} searched={searched} resetSearched ={resetSearched} settersignedin={setsignin} signedin={signedin}/>
-    {!backhome && <Home authentication={authentication}/>} 
+    <Header setHome={setHome}setAuth={setAuth} resetAuth ={resetAuth} resetBackHome={resetBackHome} searched={searched} resetSearched ={resetSearched} settersignedin={setsignin} signedin={signedin} setcon={setcon} resetcon={resetcon} />
+    {!userOrcon && backhome && <Home authentication={authentication}/>} 
     {!userOrcon && !authentication && <SearchBar searched={searchedValue} onSearchSubmit={setSearched} setSearchValue ={setSearchValue}/>}
     {!userOrcon && searched && <SearchPage searched = {searchedValue} authentication={authentication}/>}
-    {userOrcon && <SearcherUserPage/>}
+    {userOrcon && <SearcherUserPage setHome={setHome} backhome={backhome} resetcon={resetcon}/>}
     </div>
 
   );

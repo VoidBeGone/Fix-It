@@ -125,7 +125,7 @@ export default function ProfileForm({resetPU}) {
                 onChange={handleEmailChange}
                 />
             </div>
-            <button class="ProfileBtn">Change Info</button>
+            <button className="ProfileBtn">Change Info</button>
         </div>
     </div>
   );
