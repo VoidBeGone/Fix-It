@@ -34,7 +34,7 @@ export default function SearchPage({ searched }) {
                                 <div className="SPCCImage"></div>
                                 <div className="SPCCDescription">{description}</div>
                             </div>
-                            <div className ="SPCCReviews">5 Stars</div>
+                            <div className ="SPCCReviews"></div>
                         </div>
                     </div>
                 </div>

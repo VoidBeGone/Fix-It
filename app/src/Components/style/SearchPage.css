@@ -40,8 +40,8 @@
 
 
 .SPCCImage {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     background-color: #ccc;
     margin-bottom: 10px;
     flex-shrink:0;
@@ -63,3 +63,12 @@
     align-items: flex-start;
 }
 
+
+.SPCCReviews{
+    background:url("../media/stars.svg") repeat;
+    background-size:contain;
+    width:200px;
+    height:40px;
+    padding:0px;
+    margin:0px;
+}

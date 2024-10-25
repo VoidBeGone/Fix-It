@@ -23,8 +23,8 @@
   }
   
   .logo {
-    width: 200px; /* Adjust the size to fit within the circle */
-    height: 200px;
+    width: 300px; /* Adjust the size to fit within the circle */
+    height: 300px;
     background: url("../media/logo.svg") no-repeat center;
     background-size: contain; /* Ensure the logo scales properly */
   }
