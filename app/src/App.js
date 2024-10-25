@@ -8,6 +8,7 @@ import SearchBar from "./Components/JS/SearchBar.js";
 import FastCube from "./Components/JS/FastCube.js";
 import Header from "./Components/JS/Header.js";
 import SearcherUserPage from "./Components/JS/ServiceUserPage.js";
+import Spline from "./Components/JS/Spline.js";
 
 function App() {
   const [searched, setterSearched] = React.useState(false);
@@ -37,7 +38,7 @@ function App() {
     setterBackhome(false);
   }
   const setSearched = () => {
-    setterSearched(true); // Set searched to true when search is submitted
+    setterSearched(true); 
     setterBackhome(false);
   };
   const setAuth = () =>{
@@ -67,7 +68,7 @@ export default App;
 
 /*
 
-   
+  
 
 
    */
