@@ -13,7 +13,6 @@ export default function MenuPopOut({
 }) {
   const modelRef = React.useRef();
 
-  // Run the animation only once when the component is mounted
   React.useEffect(() => {
     gsap.fromTo(
       modelRef.current,

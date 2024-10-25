@@ -14,7 +14,7 @@ function App() {
   const [backhome, setterBackhome] = React.useState(true);
   const [authentication, setterAuth] = React.useState(false);
   const [searchedValue, setSearchValue] = React.useState("search");
-
+  console.log(searchedValue);
   const setSearched = () => {
     setterSearched(true); // Set searched to true when search is submitted
     setterBackhome(false);
