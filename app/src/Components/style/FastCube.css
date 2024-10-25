@@ -1,7 +1,7 @@
 .cube{
     width: 100px;
     height: 100px;
-    background-color: rgb(155, 235, 238);
+    background-color: rgb(0, 0, 0);
     position:absolute;
     top:50%;
     left:0;
@@ -12,9 +12,19 @@
     perspective: 1000px;
 }
 
-.circle{
-    width:80px;
-    height:80px;
-    background-color: rgb(177, 243, 177);
-    border-radius:50px;
-}
+.circle {
+    width: 60px;
+    height: 60px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%; /* This makes the circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 300px; /* Adjust the size to fit within the circle */
+    height: 300px;
+    background: url("../media/logo.svg") no-repeat center;
+    background-size: contain; /* Ensure the logo scales properly */
+  }

@@ -35,7 +35,7 @@ export default function FastCube() {
       style={{
         width: "100px",
         height: "100px",
-        backgroundColor: "lightblue",
+        backgroundColor: "black",
         position: "absolute",
         top: "50%",
         left: "0", // Start from the left side
@@ -46,7 +46,9 @@ export default function FastCube() {
         perspective: "1000px",
       }}
     >
-      <div className="circle"></div>
+      <div className="circle">
+        <div className="logo"></div>
+      </div>
     </div>
   );
 }

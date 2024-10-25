@@ -83,30 +83,19 @@
     cursor: pointer;
   }
   
-
-  .SignIn {
-    margin-top: 10px;
-    font-size: 1em;
-  }
-  
-  .SignIn a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-  }
   
 
   .ModalOverlay {
-    position: fixed;
+    position: fixed; /* Position relative to the entire viewport */
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.1); /* Dark background for modal overlay */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1000; /* Ensure modal is above everything */
   }
   
   .ModalContent {
@@ -114,9 +103,14 @@
     padding: 20px;
     border-radius: 10px;
     width: 400px;
+    max-width: 90vw; /* Responsive width */
+    max-height: 90vh; /* Limit modal height */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
+    position: relative; /* Stay within the modal content */
   }
+  
+  
   
   .CloseButton {
     background: none;
