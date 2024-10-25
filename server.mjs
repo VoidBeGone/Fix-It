@@ -108,7 +108,7 @@ app.post('/api/job-request',
             res.status(201).json(jobRequest);
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error : 'An error occurred while creating the user.'});
+            res.status(500).json({ error : 'An error occurred while creating the job request.'});
         }
     }
 );   
@@ -190,43 +190,103 @@ app.post('/api/review',
             res.status(201).json(review);
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'An error occurred while creating the user.' });
+            res.status(500).json({ error: 'An error occurred while creating the review.' });
         }
     }
 );
 
-app.delete('/job-request/:id',
+app.delete('/api/job-request/:id',
     async (req, res) => {
         try {
             const jobRequestId = req.params.id;
             const result = await JobRequest.findByIdAndDelete(jobRequestId);
 
             if (result) { 
-                res.status(201).json({ message: 'Job Request deleted successfully', jobRequest: result });
+                res.status(200).json({ message: 'Job Request deleted successfully', jobRequest: result });
             } else {
                 res.status(404).json({ message: 'Job Request not found'});
             }
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'An error occurred while creating the user.' });
+            res.status(500).json({ error: 'An error occurred while deleting the job request.' });
         }
     }
 );
 
-app.delete('/review/:id',
+app.delete('/api/review/:id',
     async (req, res) => {
         try {
             const reviewId = req.params.id;
             const result = await Review.findByIdAndDelete(reviewId);
             
             if (result) {
-                res.status(201).json({ message: 'Review deleted successfully', review: result });
+                res.status(200).json({ message: 'Review deleted successfully', review: result });
             } else {
                 res.status(404).json({ message: 'Review not found' });
             }
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'An error occurred while creating the user.' });
+            res.status(500).json({ error: 'An error occurred while deleting the review.' });
+        }
+    }
+);
+
+app.patch('/api/user/:id',
+    async (req, res) => {
+        try {
+            const userId = req.params.id;
+            const updates = req.body;
+
+            const updatedUser = await User.findByIdAndUpdate(userId, updates, { new: true, runValidators: true });
+
+            if (updatedUser) {
+                res.status(200).json(updatedUser);
+            } else {
+                res.status(404).json({ message: 'User not found' });
+            }
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'An error occurred while editing the user.'});
+        }
+    }
+);
+
+app.patch('/api/job-request/:id',
+    async (req, res) => {
+        try {
+            const jobRequestId = req.params.id;
+            const updates = req.body;
+
+            const updatedJobRequest = await JobRequest.findByIdAndUpdate(jobRequestId, updates, { new: true, runValidators: true});
+
+            if (updatedJobRequest) {
+                res.status(200).json(updatedJobRequest);
+            } else {
+                res.status(404).json({ message: 'Job Request not found '});
+            }
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'An error occurred while editing the job request.'});
+        }
+    }
+);
+
+app.patch('/api/review/:id',
+    async (req, res) => {
+        try {
+            const reviewId = req.params.id;
+            const updates = req.body;
+
+            const updatedReview = await Review.findByIdAndUpdate(reviewId, updates, { new: true, runValidators: true});
+
+            if (updatedReview) {
+                res.status(200).json(updatedReview);
+            } else {
+                res.status(404).json({ message: 'Review not found '});
+            }
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'An error occurred while editing the review.'});
         }
     }
 );
