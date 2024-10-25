@@ -6,6 +6,11 @@ export default function MenuPopOut({
   setLogin,
   setSignup,
 }) {
+
+
+
+
+
   const modelRef = useRef();
   const hasAnimatedRef = useRef(false); // Track if the menu has been animated
 
@@ -29,7 +34,7 @@ export default function MenuPopOut({
       );
       hasAnimatedRef.current = true;
     }
-  }, []); // No need to include `handleCloseWithAnimation` here
+  }, []); 
 
   useEffect(() => {
     const handleClickOutside = (event) => {

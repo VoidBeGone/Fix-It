@@ -6,6 +6,7 @@ import {gsap} from "gsap";
 export default function SearchPage({ searched }) {
     const description = `"Description`;
     const modelRef = React.useRef();
+
     React.useEffect(()=>{
         const timeline = gsap.timeline();
 

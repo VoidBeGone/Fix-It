@@ -32,7 +32,7 @@ function SignInForm({resetLogin,settersignedin}) {
     };
     return (
         <div className="SignInContainer">
-            <div className="SignInBox" ref={modelRef}>
+            <div className="SignInBox"ref={modelRef}>
                 <h2>Sign In</h2>
                 <form action="/signIn" onSubmit={isignedin}>
                     <div className="SignInInput">
