@@ -4,6 +4,14 @@ import "../style/SignUpForm.css";
 
 function SignUpForm({ resetSignup, settersignedin}) {
   const modelRef = useRef();
+
+  const animateOut = (x) =>{
+    gsap.to(modelRef.current,{opacity:0, scale:0.5, duration:0.5, ease:"sine.out"
+        ,onComplete:x
+    });
+};
+
+
   useEffect(() => {
     const timeline = gsap.timeline();
 
@@ -18,7 +26,9 @@ function SignUpForm({ resetSignup, settersignedin}) {
 
     const onClick = (event) => {
       if (modelRef && !modelRef.current.contains(event.target)) {
-        resetSignup();
+        animateOut(()=>{
+          resetSignup();
+        });
       }
     };
     document.addEventListener("mousedown", onClick);

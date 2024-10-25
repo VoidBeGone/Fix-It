@@ -4,6 +4,12 @@ import {gsap} from "gsap";
 
 function SignInForm({resetLogin,settersignedin}) {
     const modelRef = React.useRef();
+
+    const animateOut = (x) =>{
+        gsap.to(modelRef.current,{opacity:0, scale:0.5, duration:0.5, ease:"sine.out"
+            ,onComplete:x
+        });
+    };
     React.useEffect(()=>{
         const timeline = gsap.timeline();
         timeline.fromTo(
@@ -16,7 +22,10 @@ function SignInForm({resetLogin,settersignedin}) {
     React.useEffect(()=>{
         const onClick = (event) =>{
             if (modelRef && !modelRef.current.contains(event.target)){
-                resetLogin();
+                animateOut(()=>{
+                    resetLogin();
+                });
+
             }
         };
         document.addEventListener("mousedown", onClick);
