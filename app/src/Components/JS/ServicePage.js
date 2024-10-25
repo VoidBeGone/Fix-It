@@ -38,7 +38,7 @@ export default function ServicePage({keepServicePage}){
     React.useEffect(()=>{
       const timeline = gsap.timeline();
 
-      gsap.fromTo(modelRef.current,
+      timeline.fromTo(modelRef.current,
         {opacity:0.7},{opacity:1,duration:0.5,ease:"power2.in"},
       );
     },[]);

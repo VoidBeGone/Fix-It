@@ -13,6 +13,7 @@ function App() {
   const [searched, setterSearched] = React.useState(false);
   const [backhome, setterBackhome] = React.useState(true);
   const [authentication, setterAuth] = React.useState(false);
+  const [searchedValue, setSearchValue] = React.useState("search");
 
   const setSearched = () => {
     setterSearched(true); // Set searched to true when search is submitted
@@ -37,8 +38,8 @@ function App() {
     <FastCube/>
     <Header backHome = {resetSearch} setAuth={setAuth} resetAuth ={resetAuth}/>
     {backhome && <Home authentication={authentication}/>} 
-    {!authentication && <SearchBar searched="" onSearchSubmit={setSearched}/>}
-    {searched && <SearchPage searched = "hello" authentication={authentication}/>}
+    {!authentication && <SearchBar searched={searchedValue} onSearchSubmit={setSearched} setSearchValue ={setSearchValue}/>}
+    {searched && <SearchPage searched = {searchedValue} authentication={authentication}/>}
     </div>
 
     // <div>
