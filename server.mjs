@@ -51,7 +51,6 @@ const UserType = {
  * Creating a user
  * @route POST /signup
  * @description Creates a new account if valid
- * @param {string} username - required, 3-16 chars
  * @param {string} password - required, 8+ chars
  * @param {string} email - required, valid email
  * @param {UserType} userType - required, client or contractor account type
@@ -60,7 +59,7 @@ const UserType = {
  */
 app.post('/signup', 
     [    
-        expval.body('username').trim().isString().isLength({ min: 3, max: 16 }).withMessage("username should be 3 to 16 chars"),
+        //expval.body('username').trim().isString().isLength({ min: 3, max: 16 }).withMessage("username should be 3 to 16 chars"),
         expval.body('password').isString().isLength({ min: 8, max: 32 }).withMessage("password must be at least 8 chars"),
         expval.body('email').trim().isEmail().notEmpty().custom(async email => {
             User.findOne({email}).then((usr) => {
@@ -80,7 +79,7 @@ app.post('/signup',
             return res.status(400).json(errors.array());
         }
 
-        const username = req.body.username;
+        //const username = req.body.username;
         const password = req.body.password;
         const email = req.body.email;
         const userType = req.body.userType;
@@ -92,7 +91,7 @@ app.post('/signup',
 
             // Create a new user
             const user = new User({
-                username: username, 
+                //username: username, 
                 hash: hash,
                 email: email, 
                 userType: userType,
@@ -111,12 +110,13 @@ app.post('/signup',
 
 app.post('/signin', 
     [
-        expval.body('username').trim().isString().isLength({ min: 3, max: 16 }),
+        //expval.body('username').trim().isString().isLength({ min: 3, max: 16 }),
         expval.body('password').isString().isLength({ min: 8, max: 32 }).withMessage("password must be at least 8 chars"),
         expval.body('email').trim().isEmail()
     ],
 	async (req, res) => {
-		const username = req.body.username;
+		//const username = req.body.username;
+        const email = req.body.email;
 		const password = req.body.password;
 
 		User.findOne({username}).exec()
@@ -125,29 +125,28 @@ app.post('/signin',
 					res.status(404).end("did not find user with username")
 				  return bcrypt.compare(password, usr.hash)
 			}).then(valid => {
-        if(!valid) return res.status(401).end("bad password");
-        // start a session
-        req.session.username = username;
-        res.setHeader(
-          "Set-Cookie",
-          cookie.serialize("username", username, {
-          path: "/",
-          maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
-          })
-        );
-        res.json("Signed in successfully")
-      })
-			.catch(err => {
-        console.error(err)
-				return res.status(500).end("error signing in user")
-			})
+                if(!valid) return res.status(401).end("bad password");
+                // start a session
+                req.session.email = email;
+                res.setHeader(
+                    "Set-Cookie",
+                    cookie.serialize("email", email, {
+                    path: "/",
+                    maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
+                    })
+                );
+                res.json("Signed in successfully")
+            }).catch(err => {
+            console.error(err)
+                    return res.status(500).end("error signing in user")
+            })
 });
 
 app.get("/signout/", isAuthenticated, function (req, res, next) {
 	req.session.destroy();
 	res.setHeader(
 		"Set-Cookie",
-		cookie.serialize("username", "", {
+		cookie.serialize("email", "", {
 			path: "/",
 			maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
 		})

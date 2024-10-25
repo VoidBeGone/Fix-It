@@ -3,10 +3,6 @@ const Schema = mongoose.Schema;
 
 // Schema defines the structure of the documents saved to the collection
 const userSchema = new Schema({
-    username: {
-        type: String,
-        required: true
-    },
     email: {
         type: String,
         required: true
