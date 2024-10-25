@@ -55,8 +55,8 @@ const UserType = {
  * @param {string} password - required, 8+ chars
  * @param {string} email - required, valid email
  * @param {UserType} userType - required, client or contractor account type
- * @return {object} 200 if user
- * @return {object} 
+ * @return {object} 201 if user is created successfully
+ * @return {object} 500 if user is not created
  */
 app.post('/signup', 
     [    
