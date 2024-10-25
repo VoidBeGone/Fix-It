@@ -195,6 +195,42 @@ app.post('/api/review',
     }
 );
 
+app.delete('/job-request/:id',
+    async (req, res) => {
+        try {
+            const jobRequestId = req.params.id;
+            const result = await JobRequest.findByIdAndDelete(jobRequestId);
+
+            if (result) { 
+                res.status(201).json({ message: 'Job Request deleted successfully', jobRequest: result });
+            } else {
+                res.status(404).json({ message: 'Job Request not found'});
+            }
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'An error occurred while creating the user.' });
+        }
+    }
+);
+
+app.delete('/review/:id',
+    async (req, res) => {
+        try {
+            const reviewId = req.params.id;
+            const result = await Review.findByIdAndDelete(reviewId);
+            
+            if (result) {
+                res.status(201).json({ message: 'Review deleted successfully', review: result });
+            } else {
+                res.status(404).json({ message: 'Review not found' });
+            }
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'An error occurred while creating the user.' });
+        }
+    }
+);
+
 app.get('/hello', isAuthenticated, (req, res) => {
 	res.status(200).json("sex machine 2.0 ")
 })
