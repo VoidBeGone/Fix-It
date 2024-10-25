@@ -205,8 +205,46 @@ app.get("/signout/", isAuthenticated, function (req, res, next) {
 });
 
 app.get('/api/me', isAuthenticated, function(req, res, next) {
-    User.findById()
-})
+    User.findById(req.session.id).exec()
+    .then((usr) => {
+        if(!usr) {
+            return res.status('did not find user '+req.session.id);
+        }
+        const data = {
+            profile: usr.profile,
+            email: usr.email
+        }
+    }).catch(err => {
+        console.error(err);
+        return res.status(500).end("error getting user");
+    })
+});
+
+app.patch('/api/me', isAuthenticated, function(req, res, next) {
+    User.findById(req.session.id).exec()
+    .then((usr) => {
+        if (!usr) {
+            return res.status(404).send('User not found'); // Return a proper status code
+        }
+        
+        // Update user fields based on the request body
+        usr.profile.firstName = req.body.profile.firstName;
+        usr.profile.lastName = req.body.profile.lastName;
+        usr.profile.age = req.body.profile.age;
+        usr.email = req.body.email;
+
+        // Save the updated user
+        return usr.save();
+    })
+    .then((updatedUser) => {
+        res.status(200).json(updatedUser); // Send back the updated user
+    })
+    .catch(err => {
+        console.error(err);
+        return res.status(500).send("Error updating user");
+    });
+});
+
 
 /*
  * Creating a job request
