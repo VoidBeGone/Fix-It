@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-//Schema defines the defines the structure of the documents saved to the collection
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
+
+// Schema defines the structure of the documents saved to the collection
 const userSchema = new Schema({
     username: {
         type: String,
@@ -21,22 +22,22 @@ const userSchema = new Schema({
     },
     profile: {
         name: {
-            required: true
+            type: String, // Added type for name
+            default: this.username
         },
         bio: {
             type: String,
             default: ''
         },
-        //idk how we want to do location
         location: {
             type: String,
-            required: true 
+            default: 'alabama'
         },
         organization: {
             type: String
         }
     },
-      // Freelancer-specific fields
+    // Freelancer-specific fields
     skills: [{
         type: String,
         required: function () { return this.userType === 'contractor'; }
@@ -69,10 +70,7 @@ const userSchema = new Schema({
         rating: { type: Number, required: true },
         comment: { type: String, default: '' }
     }],
+}, { timestamps: true }); // Enable timestamps for createdAt and updatedAt
 
-//   createdAt: { type: Date, default: Date.now },
-//   updatedAt: { type: Date, default: Date.now }
-
-}, {timestamps: false})
-//export the parts schema to the Parts collection
-module.exports = mongoose.model('User', UsersSchema)
+// Export the user schema to the User collection
+export const User = mongoose.model('User', userSchema);
