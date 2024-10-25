@@ -7,6 +7,7 @@ import SearchPage from "./Components/JS/SearchPage.js";
 import SearchBar from "./Components/JS/SearchBar.js";
 import FastCube from "./Components/JS/FastCube.js";
 import Header from "./Components/JS/Header.js";
+import AddService from "./Components/JS/AddService.js";
 
 function App() {
   const [searched, setterSearched] = React.useState(false);
@@ -41,14 +42,15 @@ function App() {
 
 
   return (
-    <div>
-    <FastCube/>
-    <Header setHome={setHome }setAuth={setAuth} resetAuth ={resetAuth} resetBackHome={resetBackHome} searched={searched} resetSearched ={resetSearched} settersignedin={setsignin} signedin={signedin}/>
-    {backhome && <Home authentication={authentication}/>} 
-    {!authentication && <SearchBar searched={searchedValue} onSearchSubmit={setSearched} setSearchValue ={setSearchValue}/>}
-    {searched && <SearchPage searched = {searchedValue} authentication={authentication}/>}
-    </div>
+    // <div>
+    // <FastCube/>
+    // <Header setHome={setHome }setAuth={setAuth} resetAuth ={resetAuth} resetBackHome={resetBackHome} searched={searched} resetSearched ={resetSearched} settersignedin={setsignin} signedin={signedin}/>
+    // {backhome && <Home authentication={authentication}/>} 
+    // {!authentication && <SearchBar searched={searchedValue} onSearchSubmit={setSearched} setSearchValue ={setSearchValue}/>}
+    // {searched && <SearchPage searched = {searchedValue} authentication={authentication}/>}
+    // </div>
 
+    <AddService/>
   );
 }
 
