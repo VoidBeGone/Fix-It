@@ -11,6 +11,8 @@ import SignInHeader from "./Components/JS/SignInHeader.js"
 import SignInForm from "./Components/JS/SignInForm.js"
 import SignUpHeader from "./Components/JS/SignUpHeader.js";
 import SignUpForm from "./Components/JS/SignUpForm.js";
+import ProfileHeader from "./Components/JS/ProfileHeader.js";
+import ProfileForm from "./Components/JS/ProfileForm.js"
 
 function App() {
   const [searched, setSearched] = React.useState(false);
@@ -28,15 +30,19 @@ function App() {
     //   {searched && <SearchPage searched = "hello"/>}
     // </div>
 
-    <div>
-      <SignInHeader/>
-      <SignInForm/>
-    </div>
+    // <div>
+    //   <SignInHeader/>
+    //   <SignInForm/>
+    // </div>
     
     // <div>
     //   <SignUpHeader/>
     //   <SignUpForm/>
     // </div>
+    <div>
+      <ProfileHeader/>
+      <ProfileForm/>
+    </div>
   );
 }
 
