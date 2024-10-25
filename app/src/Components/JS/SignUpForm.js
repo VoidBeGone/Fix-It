@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap"; // Import GSAP for animation
 import "../style/SignUpForm.css";
 
@@ -35,10 +35,39 @@ function SignUpForm({ resetSignup, settersignedin}) {
     };
   }, []);
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [age, setAge] = useState(0);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const isignedin = () =>{
-    settersignedin();
-    resetSignup();
-  }
+      settersignedin();
+      resetSignup();
+  };
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+          const response = await fetch('/signup', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email, password, confirmPassword, firstName, lastName})
+          }); 
+          if (response.ok) {
+              console.log(response.json());
+              isignedin();
+          } else {
+              console.error(response);
+              setErrorMessage(await response.text());
+          }
+      } catch (e) {
+          console.error(e);
+          setErrorMessage('error occurred with login system')
+      }
+  };
 
   
   return (
@@ -46,37 +75,37 @@ function SignUpForm({ resetSignup, settersignedin}) {
       {/* Outer square for the spinning cube effect */}
       <div className="SignUpBox" ref={modelRef}>
         <h2>Sign Up</h2>
-        <form action="/signUp" onSubmit={isignedin}>
+        <form onSubmit={handleSubmit}>
           <div className="SignUpInput">
             <label htmlFor="fName">First Name</label>
-            <input type="text" id="fName" name="fName" required></input>
+            <input type="text" id="fName" name="fName" onChange={setFirstName} required></input>
           </div>
 
           <div className="SignUpInput">
             <label htmlFor="lName">Last Name</label>
-            <input type="text" id="lName" name="lName" required></input>
+            <input type="text" id="lName" name="lName" onChange={setLastName} required></input>
           </div>
 
           <div className="SignUpInput">
             <label htmlFor="age">Age</label>
-            <input type="number" id="age" name="age" required></input>
+            <input type="number" id="age" name="age" onChange={setAge} required></input>
           </div>
 
           <div className="SignUpInput">
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" required></input>
+            <input type="email" id="email" name="email" onChange={setEmail} required></input>
           </div>
 
           <div className="SignUpInput">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" name="password" required></input>
+            <input type="password" id="password" name="password" onChange={setPassword} required></input>
           </div>
 
           <div className="SignUpInput">
             <label htmlFor="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required></input>
+            <input type="password" id="confirmPassword" name="confirmPassword" onChange={setConfirmPassword} required></input>
           </div>
-
+          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           <button type="submit" className="SignUpBtn">Sign Up</button>
         </form>
       </div>
