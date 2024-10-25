@@ -1,16 +1,17 @@
 /* Ensure that the entire page height is used */
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
+
 
 .ProfileContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
-    background-color: #f7f7f7; /* Light background */
+    height: 100vh; 
+    background-color: #f7f7f7; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1000; 
 }
 
 .ProfileBox {
