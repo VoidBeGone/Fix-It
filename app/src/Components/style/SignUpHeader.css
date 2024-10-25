@@ -1,0 +1,68 @@
+.SignUpHeader {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 70px;
+    background:transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: black;
+    z-index: 1000; 
+    font-size:1.3em;
+}
+
+.SignUpHeaderLeft {
+    display: flex;
+    align-items: center;
+}
+
+.SignUpHeaderLeft div {
+    margin-right: 20px;
+    border-radius: 5px;
+    padding: 12px 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.SignUpHeaderRight {
+    display: flex;
+    align-items: center;
+}
+
+.SignUpHeaderLogin{
+    background-image:url("../media/login.svg");
+    background-repeat:none;
+    background-size:cover;
+    width:78px;
+    height:80px;
+    padding:0px
+}
+
+.SignUpHeaderRight div {
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.SignUpHeaderSignUp {
+    margin-right: 50px; 
+    width: 100px;        
+    height: 40px;       
+    background-color: black;  
+    color: white;       
+    border-radius: 20px; 
+    display: flex;
+    justify-content: center;  
+    align-items: center;  
+    cursor: pointer;     
+    transition: background-color 0.5s ease; 
+    transition: color 0.5 ease;
+}
+
+.SignUpHeaderSignUp:hover {
+    background-color: #ebebeb;  
+    color:black;
+}
