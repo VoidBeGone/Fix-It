@@ -8,6 +8,7 @@ import SearchBar from "./Components/JS/SearchBar.js";
 import FastCube from "./Components/JS/FastCube.js";
 import Header from "./Components/JS/Header.js";
 import AddService from "./Components/JS/AddService.js";
+import Landing from "./Components/JS/Landing.js";
 
 function App() {
   const [searched, setterSearched] = React.useState(false);
@@ -50,7 +51,8 @@ function App() {
     // {searched && <SearchPage searched = {searchedValue} authentication={authentication}/>}
     // </div>
 
-    <AddService/>
+    // <AddService/>
+    <Landing/>
   );
 }
 
