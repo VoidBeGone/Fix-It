@@ -26,7 +26,7 @@ function App() {
   const setAuth = () =>{
     setterAuth(true);
   };
-  
+
   const resetAuth = () =>{
     setterAuth(false);
   };
@@ -36,10 +36,10 @@ function App() {
     <div>
     <FastCube/>
     <Header backHome = {resetSearch} setAuth={setAuth} resetAuth ={resetAuth}/>
-    {backhome && <Home/>} 
-    {!authentication && <SearchBar searched="" onSearchSubmit={setSearched} />}
-    {searched && <SearchPage searched = "hello"/>}
-  </div>
+    {backhome && <Home authentication={authentication}/>} 
+    {!authentication && <SearchBar searched="" onSearchSubmit={setSearched}/>}
+    {searched && <SearchPage searched = "hello" authentication={authentication}/>}
+    </div>
 
     // <div>
     //   <SignUpHeader/>

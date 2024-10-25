@@ -1,9 +1,17 @@
 import React from "react";
 import "../style/SignInForm.css";
-
+import {gsap} from "gsap";
 
 function SignInForm({resetLogin}) {
     const modelRef = React.useRef();
+    React.useEffect(()=>{
+        const timeline = gsap.timeline();
+        timeline.fromTo(
+            modelRef.current,
+            { opacity: 0, scale: 0},
+            { opacity: 1, scale:1, ease:"power2.out"},
+        );
+    });
     
     React.useEffect(()=>{
         const onClick = (event) =>{

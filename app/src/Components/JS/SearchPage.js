@@ -1,17 +1,19 @@
 import React from "react";
 import "../style/SearchPage.css";
 import ServicePage from "./ServicePage.js";
+import {gsap} from "gsap";
 
 export default function SearchPage({ searched }) {
-    const description = `Description: "The quick brown fox jumps over the lazy dog, 
-    showcasing the agility and grace of its movements. 
-    In the distance, the sun begins to set, casting a golden glow across the horizon. 
-    Birds chirp in the trees, and a gentle breeze sways the leaves, 
-    creating a peaceful atmosphere. It's one of those rare moments where time seems to slow down, 
-    allowing you to appreciate the beauty of nature in its simplest form. 
-    The fox pauses for a moment, glancing back as if inviting you to 
-    join it on its journey into the twilight."`;
+    const description = `"Description`;
     
+    const modelRef = React.useRef();
+    React.useEffect(()=>{
+        const timeline = gsap.timeline();
+
+        timeline.fromTo(modelRef.current,
+          {opacity:0.5, scale:0.9},{opacity:1, scale:1,duration:0.2, ease:"power2.in"},  
+        );
+    },[]);
     const [serviceClicked, setServiceClicked] = React.useState(false);
 
     const setterServiceClick =  () =>{
@@ -24,7 +26,7 @@ export default function SearchPage({ searched }) {
     return (
         <div>
             {serviceClicked && <ServicePage keepServicePage= {resetServiceClick}/>}
-            <div className="SearchPage">
+            <div className="SearchPage" ref={modelRef}>
                 <div className="SearchPageContainer">
                     <div className="SearchPageContent">
                         <div className="SearchPageContentContainer" onClick ={setterServiceClick}>

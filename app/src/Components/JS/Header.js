@@ -29,8 +29,8 @@ function Header({backHome,setAuth, resetAuth}) {
     };
 
     const setSignUp = () =>{
-        setterSignin(true);
         setterLogin(false);
+        setterSignin(true);
         setAuth(); 
     };
 

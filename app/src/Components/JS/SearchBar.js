@@ -1,7 +1,7 @@
 import React from "react";
 import "../style/SearchBar.css";
 
-export default function Searchbar({searched, onSearchSubmit}){
+export default function Searchbar({searched, onSearchSubmit,authentication}){
     const [formValue, setFormValue] = React.useState(searched);
 
     const handleSubmit = (event) =>{
