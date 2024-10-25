@@ -59,7 +59,6 @@ function App() {
     {!userOrcon && searched && <SearchPage searched = {searchedValue} authentication={authentication}/>}
     {userOrcon && <SearcherUserPage setHome={setHome} backhome={backhome} resetcon={resetcon}/>}
     </div>
-
   );
 }
 

@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import * as cookie from 'cookie';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
@@ -22,17 +23,21 @@ app.use(
 	  resave: false,
 	  saveUninitialized: true,
 	})
-  );
+);
+
+app.use(cors({
+    origin: 'http://localhost:'+process.env.PORT
+}));
 
 app.use(function (req, res, next) {
 	let cookies = cookie.parse(req.headers.cookie || "");
-	req.username = cookies.username ? cookies.username : null;
-	console.log("HTTP request", req.username, req.method, req.url, req.body);
+	req.email = cookies.email ? cookies.email : null;
+	console.log("HTTP request", req.email, req.method, req.url, req.body);
 	next();
 });
 
 const isAuthenticated = function (req, res, next) {
-	if (!req.session.username) return res.status(401).end("access denied, not logged in");
+	if (!req.session.id) return res.status(401).end("access denied, not logged in");
 	next();
 };
 
@@ -59,8 +64,11 @@ const UserType = {
  */
 app.post('/signup', 
     [    
-        //expval.body('username').trim().isString().isLength({ min: 3, max: 16 }).withMessage("username should be 3 to 16 chars"),
+        //expval.body('email').trim().isString().isLength({ min: 3, max: 16 }).withMessage("email should be 3 to 16 chars"),
         expval.body('password').isString().isLength({ min: 8, max: 32 }).withMessage("password must be at least 8 chars"),
+        expval.body('confirmPassword').isString().custom(async pw => {
+
+        }),
         expval.body('email').trim().isEmail().notEmpty().custom(async email => {
             User.findOne({email}).then((usr) => {
                 if (usr)
@@ -71,7 +79,10 @@ app.post('/signup',
             if (type !== 'client' || type !== 'contractor') {
                 throw new Error('invalid user type');
             }
-        })
+        }),
+        expval.body('firstName').isString().trim().notEmpty().withMessage('no first name'),
+        expval.body('lastName').isString().trim().notEmpty().withMessage('no last name'),
+
     ],
     async (req, res) => {
         const errors = expval.validationResult(req);
@@ -79,10 +90,11 @@ app.post('/signup',
             return res.status(400).json(errors.array());
         }
 
-        //const username = req.body.username;
+        //const email = req.body.email;
         const password = req.body.password;
         const email = req.body.email;
         const userType = req.body.userType;
+        const name = req.body.firstName + req.body.lastName;
 
         try {
             // Generate salt and hash the password
@@ -91,10 +103,13 @@ app.post('/signup',
 
             // Create a new user
             const user = new User({
-                //username: username, 
+                //email: email, 
                 hash: hash,
                 email: email, 
                 userType: userType,
+                profile: {
+                    name, bio: 'THIS IS BIO'
+                }
             });
 
             // Save the user to the database
@@ -108,51 +123,90 @@ app.post('/signup',
         }
 });
 
+app.get('/test/users', async (req, res) => {
+    try {
+        const users = await User.find(); // Fetch all users from the User model
+        res.json(users); // Respond with the list of users in JSON format
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "An error occurred while fetching users" });
+    }
+});
+
+
 app.post('/signin', 
     [
-        //expval.body('username').trim().isString().isLength({ min: 3, max: 16 }),
+        //expval.body('email').trim().isString().isLength({ min: 3, max: 16 }),
         expval.body('password').isString().isLength({ min: 8, max: 32 }).withMessage("password must be at least 8 chars"),
         expval.body('email').trim().isEmail()
     ],
 	async (req, res) => {
-		//const username = req.body.username;
+		//const email = req.body.email;
         const email = req.body.email;
 		const password = req.body.password;
 
-		User.findOne({username}).exec()
-			.then(usr => {
-				if (!usr)
-					res.status(404).end("did not find user with username")
-				  return bcrypt.compare(password, usr.hash)
-			}).then(valid => {
-                if(!valid) return res.status(401).end("bad password");
-                // start a session
-                req.session.email = email;
+        User.findOne({ email }).exec()
+        .then(usr => {
+            if (!usr) {
+                // If no user is found, respond and exit early
+                return res.status(404).end("did not find user with email");
+            }
+    
+            // Proceed with password comparison if user is found
+            return bcrypt.compare(password, usr.hash).then(valid => {
+                if (!valid) {
+                    return res.status(401).end("bad password");
+                }
+    
+                // Start a session if the password is valid
+                req.session.id = usr._id;
                 res.setHeader(
                     "Set-Cookie",
-                    cookie.serialize("email", email, {
-                    path: "/",
-                    maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
-                    })
+                    [
+                        cookie.serialize("id", id, {
+                            path: "/",
+                            maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
+                        }),
+                        // fullname as cookie lol 
+                        cookie.serialize("name", usr.profile.firstName + ' ' + usr.profile.lastName, {
+                            path: "/",
+                            maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
+                        })
+                    ]
                 );
-                res.json("Signed in successfully")
-            }).catch(err => {
-            console.error(err)
-                    return res.status(500).end("error signing in user")
-            })
+    
+                // Send success response
+                return res.json("Signed in successfully");
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            return res.status(500).end("error signing in user");
+        });
+    
 });
 
 app.get("/signout/", isAuthenticated, function (req, res, next) {
 	req.session.destroy();
 	res.setHeader(
 		"Set-Cookie",
-		cookie.serialize("email", "", {
-			path: "/",
-			maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
-		})
+        [
+		    cookie.serialize("id", "", {
+			    path: "/",
+			    maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
+		    }),
+            cookie.serialize("name", "", {
+                path: "/",
+                maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
+            })
+        ]
 	);
 	res.status(200).end("signed out");
 });
+
+app.get('/api/me', isAuthenticated, function(req, res, next) {
+    User.findById()
+})
 
 /*
  * Creating a job request
