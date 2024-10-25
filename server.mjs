@@ -41,80 +41,80 @@ app.get('/', (req, res) => {
 })
 
 /**
+ * @enum {string}
+ */
+const UserType = {
+    CLIENT: 'client', CONTRACTOR: 'contractor'
+}
+
+/**
  * Creating a user
+ * @route POST /signup
+ * @description Creates a new account if valid
+ * @param {string} username - required, 3-16 chars
+ * @param {string} password - required, 8+ chars
+ * @param {string} email - required, valid email
+ * @param {UserType} userType - required, client or contractor account type
+ * @return {object} 200 if user
+ * @return {object} 
  */
 app.post('/signup', 
+    [    
+        expval.body('username').trim().isString().isLength({ min: 3, max: 16 }).withMessage("username should be 3 to 16 chars"),
+        expval.body('password').isString().isLength({ min: 8, max: 32 }).withMessage("password must be at least 8 chars"),
+        expval.body('email').trim().isEmail().notEmpty().custom(async email => {
+            User.findOne({email}).then((usr) => {
+                if (usr)
+                    throw new Error('this email is already registered with another account')
+            }).catch((err) => { throw new Error(err.message); });
+        }),
+        expval.body('userType').custom(async type => {
+            if (type !== 'client' || type !== 'contractor') {
+                throw new Error('invalid user type');
+            }
+        })
+    ],
     async (req, res) => {
+        const errors = expval.validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json(errors.array());
+        }
+
         const username = req.body.username;
         const password = req.body.password;
         const email = req.body.email;
         const userType = req.body.userType;
 
-		User.findOne({username}).exec()
-			.then(async (usr) => {
-				res.set
-				try {
-					// Generate salt and hash the password
-					const salt = await bcrypt.genSalt(10);
-					const hash = await bcrypt.hash(password, salt);
-		
-					// Create a new user
-					const user = new User({
-						username: username, 
-						hash: hash,  // Use 'hash' instead of 'password'
-						email: email, 
-						userType: "client",
-					});
-		
-					// Save the user to the database
-					await user.save();
-		
-					// Respond with the created user
-					res.status(201).json(user);
-				} catch (err) {
-					console.error(err);
-					res.status(500).json({ error: 'An error occurred while creating the user.' });
-				}
-			})
-			.catch(err => {
-				return res.status(500).end("error querying user")
-			})
-});
-
-/*
- * Creating a job request
-*/
-app.post('/api/job-request', 
-    async (req, res) => {
-        const title = req.body.title;
-        const date = req.body.date;
-        const service = req.body.service;
-        const location = req.body.location;
-        const clientId = req.body.clientId;
-        const contractorId = req.body.contractorId;
-    
         try {
-            // Create a new job request
-            const jobRequest = new JobRequest({
-                title: title,
-                date: date,
-                service: service,
-                location: location,
-                clientId: clientId,
-                contractorId: contractorId
-            });
-            await jobRequest.save();
+            // Generate salt and hash the password
+            const salt = await bcrypt.genSalt(10);
+            const hash = await bcrypt.hash(password, salt);
 
-            res.status(201).json(jobRequest);
+            // Create a new user
+            const user = new User({
+                username: username, 
+                hash: hash,
+                email: email, 
+                userType: userType,
+            });
+
+            // Save the user to the database
+            await user.save();
+
+            // Respond with the created user
+            res.status(201).json(user);
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error : 'An error occurred while creating the job request.'});
+            res.status(500).json({ error: 'An error occurred while creating the user.' });
         }
-    }
-);   
-
+});
 
 app.post('/signin', 
+    [
+        expval.body('username').trim().isString().isLength({ min: 3, max: 16 }),
+        expval.body('password').isString().isLength({ min: 8, max: 32 }).withMessage("password must be at least 8 chars"),
+        expval.body('email').trim().isEmail()
+    ],
 	async (req, res) => {
 		const username = req.body.username;
 		const password = req.body.password;
@@ -155,6 +155,39 @@ app.get("/signout/", isAuthenticated, function (req, res, next) {
 	res.status(200).end("signed out");
 });
 
+/*
+ * Creating a job request
+*/
+app.post('/api/job-request', 
+    async (req, res) => {
+        const title = req.body.title;
+        const date = req.body.date;
+        const service = req.body.service;
+        const location = req.body.location;
+        const clientId = req.body.clientId;
+        const contractorId = req.body.contractorId;
+    
+        try {
+            // Create a new job request
+            const jobRequest = new JobRequest({
+                title: title,
+                date: date,
+                service: service,
+                location: location,
+                clientId: clientId,
+                contractorId: contractorId
+            });
+            await jobRequest.save();
+
+            res.status(201).json(jobRequest);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error : 'An error occurred while creating the job request.'});
+        }
+    }
+);   
+
+
 //get user by id
 app.get('/api/users/:id', async (req, res) => {
 	await User.findById(req.params.id).exec()
@@ -164,7 +197,6 @@ app.get('/api/users/:id', async (req, res) => {
 		res.status(404).json(err);
 	});
 })
-
 
 
 /*
