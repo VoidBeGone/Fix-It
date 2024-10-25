@@ -84,7 +84,7 @@ app.post('/signup',
 /*
  * Creating a job request
 */
-app.post('/job-request', 
+app.post('/api/job-request', 
     async (req, res) => {
         const title = req.body.title;
         const date = req.body.date;
@@ -170,7 +170,7 @@ app.get('/api/users/:id', async (req, res) => {
 /*
  * Creating a review
 */
-app.post('/review', 
+app.post('/api/review', 
     async (req, res) => {
         const reviewer = req.body.reviewer;
         const reviewee = req.body.reviewee;
