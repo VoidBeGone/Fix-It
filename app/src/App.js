@@ -14,6 +14,8 @@ import SignUpForm from "./Components/JS/SignUpForm.js";
 import ProfileHeader from "./Components/JS/ProfileHeader.js";
 import ProfileForm from "./Components/JS/ProfileForm.js"
 import Payment from "./Components/JS/Payment.js"; 
+import UserReview from "./Components/JS/UserReview.js";
+import ConstructorReview from "./Components/JS/ConstructorReview.js";
 
 function App() {
   const [searched, setSearched] = React.useState(false);
@@ -44,7 +46,9 @@ function App() {
     //   <ProfileHeader/>
     //   <ProfileForm/>
     // </div>
-    <Payment/>
+    // <Payment/>
+    // <UserReview/>
+    <ConstructorReview/>
   );
 }
 

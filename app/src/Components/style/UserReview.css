@@ -1,0 +1,84 @@
+/* General container */
+.review-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+  }
+  
+  /* Review card styling */
+  .review-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .rating-group {
+    margin-bottom: 20px;
+  }
+  
+  .star-rating {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .star {
+    font-size: 30px;
+    cursor: pointer;
+    color: #ddd;
+    transition: color 0.3s;
+  }
+  
+  .star.filled {
+    color: #f5b301;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    resize: none;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #1dbf73;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #17a860;
+  }
+  
