@@ -11,7 +11,7 @@ export default function SearchPage({ searched }) {
         const timeline = gsap.timeline();
 
         timeline.fromTo(modelRef.current,
-          {opacity:0.5, scale:0.9},{opacity:1, scale:1,duration:0.2, ease:"power2.in"},  
+          {opacity:0.5},{opacity:1,duration:0.2, ease:"none"},  
         );
     },[]);
     const [serviceClicked, setServiceClicked] = React.useState(false);

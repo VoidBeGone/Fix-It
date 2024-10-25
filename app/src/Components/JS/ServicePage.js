@@ -1,11 +1,13 @@
 import React from "react";
 import "../style/ServicePage.css";
 import ScheduleModal from "./ScheduleModal.js";
+import {gsap} from "gsap";
 
 export default function ServicePage({keepServicePage}){
     const description = `Description`;
 
     const modelRef = React.useRef();
+
     const [serviceSchedule, setterServiceSchedule] = React.useState(false);
 
     const setServiceSchedule =() =>{
@@ -16,10 +18,34 @@ export default function ServicePage({keepServicePage}){
         setterServiceSchedule(false);
     };
 
+    const animateOut = (onComplete) => {
+      // First, animate the background color
+      gsap.to(modelRef.current, {
+        backgroundColor: "white",
+        duration: 0.5,
+        ease: "power2.in",
+        onComplete: () => {
+          gsap.to(modelRef.current, {
+            opacity: 0,
+            scale: 0.9,
+            duration: 0.2,
+            ease: "power2.in",
+            onComplete: onComplete,
+          });
+        },
+      });
+    };
+    React.useEffect(()=>{
+      const timeline = gsap.timeline();
+
+      gsap.fromTo(modelRef.current,
+        {opacity:0.7},{opacity:1,duration:0.5,ease:"power2.in"},
+      );
+    },[]);
     React.useEffect(() => {
         const onClicked = (event) => {
           if (modelRef.current && !modelRef.current.contains(event.target)) {
-            keepServicePage();
+            animateOut(() => keepServicePage(false));
           }
         };
     
@@ -32,7 +58,6 @@ export default function ServicePage({keepServicePage}){
         };
       }, [keepServicePage, serviceSchedule]); 
     
-
     return(
         <>
         {serviceSchedule && <ScheduleModal closeModal = {resetServiceSchedule}/>}
