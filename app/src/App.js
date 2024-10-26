@@ -8,7 +8,15 @@ import SearchBar from "./Components/JS/SearchBar.js";
 import Header from "./Components/JS/Header.js";
 import SearcherUserPage from "./Components/JS/ServiceUserPage.js";
 
-
+export function getId() {
+  return document.cookie.replace(
+    /(?:(?:^|.*;\s*)id\s*\=\s*([^;]*).*$)|^.*$/,
+    "$1",
+  );
+}
+export function isLoggedIn() {
+  return getId() != '';
+}
 
 function App() {
   const [searched, setterSearched] = React.useState(false);
@@ -17,6 +25,13 @@ function App() {
   const [searchedValue, setSearchValue] = React.useState("search");
   const [signedin, settersignedin] = React.useState(false);
   const [userOrcon, setterUserOrCon] = React.useState(false);
+
+  React.useEffect(() => {
+    // Check if user is logged in on component mount
+    if (isLoggedIn()) {
+      setterAuth(true);
+    }
+  }, []);
 
   const setcon = () =>{
     setterUserOrCon(true);
