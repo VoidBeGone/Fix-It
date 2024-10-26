@@ -7,6 +7,11 @@ function Home({ authentication,backhome}) {
   const homeContainerRef = useRef(null);
   const splineRef = useRef(null); // Reference for the Spline component
 
+
+  const handleSearch = (event) => {
+    event.preventDefault(); 
+    console.log("Hello");
+  };
   // Ensure animation happens after DOM updates with useLayoutEffect
   useLayoutEffect(() => {
     const timeline = gsap.timeline();
@@ -41,22 +46,26 @@ function Home({ authentication,backhome}) {
   return (
     <div>
       <div className="Home">
-        <div className="HomeContainer" ref={homeContainerRef}>
-          <div className="HomeTitle">Order Service near you</div>
+      <div className="HomeContainer" ref={homeContainerRef}>
+        <div className="HomeTitle">Order Service near you</div>
 
-          <div className="AddressForm">
-            <input type="text" className="ServiceInput" placeholder="Enter Service"/>
+        <div className="AddressForm">
+          {/* Wrap the inputs and button in a form element */}
+          <form onSubmit={handleSearch}>
+            <input type="text" className="ServiceInput" placeholder="Enter Service" name="service" required />
             <input
               type="text"
               className="AddressInput"
               placeholder="Enter delivery address"
+              name="address"
+              required
             />
-
-            <button className="SearchButton">Search here</button>
-          </div>
-              
+            <button type="submit" className="SearchButton">Search here</button>
+          </form>
         </div>
       </div>
+    </div>
+
       
       {/* Spline component with a fade-in effect */}
       <div ref={splineRef}>
