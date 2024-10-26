@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../style/AddService.css'; 
+import { gsap } from 'gsap';
 
-function AddService({resetService}) {
+function AddService({ resetService }) {
   // State to store service information
   const [serviceInfo, setServiceInfo] = useState({
     title: '',
@@ -11,7 +12,9 @@ function AddService({resetService}) {
     location: '',
     image: null, // New image field
   });
-  const modelRef = React.useRef();
+  
+  const modelRef = useRef();
+
   // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,23 +47,42 @@ function AddService({resetService}) {
       location: '',
       image: null, // Reset image field
     });
-    resetService();
+    animateOut(resetService);
   };
 
-  React.useEffect(()=>{
-    const onClick = (event)=>{
-      if (modelRef && !modelRef.current.contains(event.target)){
-        resetService();
+  // Animate out function
+  const animateOut = (callback) => {
+    gsap.to(modelRef.current, {
+      opacity: 0,
+      scale: 0.5,
+      duration: 0.5,
+      ease: "sine.out",
+      onComplete: callback,
+    });
+  };
+
+  // Add animations for entrance and exit
+  useEffect(() => {
+    const timeline = gsap.timeline();
+    timeline.fromTo(
+      modelRef.current,
+      { opacity: 0, scale: 0.8 },
+      { opacity: 1, scale: 1, duration: 0.5, ease: "sine2.in" }
+    );
+
+    const handleClickOutside = (event) => {
+      if (modelRef.current && !modelRef.current.contains(event.target)) {
+        animateOut(resetService);
       }
     };
-    document.addEventListener("mousedown", onClick);
-    
-    return ()=>{
-      document.removeEventListener("mousedown", onClick);
-    }
-  },[resetService])
 
-  
+    document.addEventListener("mousedown", handleClickOutside);
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [resetService]);
+
   return (
     <div className="AddServiceContainer">
       <div className="AddServiceCard" ref={modelRef}>
