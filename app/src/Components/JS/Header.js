@@ -6,7 +6,8 @@ import SignInForm from "./SignInForm.js"
 import SignUpForm from "./SignUpForm.js";
 import ProfileForm from "./ProfileForm.js";
 import AddService from "./AddService.js";
-function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearched,settersignedin,signedin, setServicePage, resetcon, userOrcon}) {
+function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearched,settersignedin,signedin, 
+    setServicePage, resetcon, userOrcon, resetPayment}) {
     const [popOutClicked, setPopOutClicked] = React.useState(false);
     const [login, setterLogin] = React.useState(false);
     const [signin, setterSignin] = React.useState(false);
@@ -64,6 +65,7 @@ function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearc
         resetSearched();
         resetLogin();
         resetSignUp();
+        resetPayment();
         setHome();
     }
 

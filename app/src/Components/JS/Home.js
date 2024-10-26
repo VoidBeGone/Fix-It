@@ -3,7 +3,7 @@ import "../style/home.css";
 import { gsap } from "gsap";
 import SplineElement from "./Spline.js";
 
-function Home({ authentication,backhome,setSearched,setSearchValue}) {
+function Home({ authentication,backhome,setSearched,setSearchValue, setterAddress}) {
   const homeContainerRef = useRef(null);
   const splineRef = useRef(null); // Reference for the Spline component
 
@@ -12,7 +12,8 @@ function Home({ authentication,backhome,setSearched,setSearchValue}) {
     event.preventDefault(); 
     console.log("Hello");
     setSearched();
-    setSearchValue("SET THIS TO BE WHATEVER VALUE YOU WANT");
+    setSearchValue(event.target.service.value);
+    setterAddress(event.target.address.value);
   };
   // Ensure animation happens after DOM updates with useLayoutEffect
   useLayoutEffect(() => {

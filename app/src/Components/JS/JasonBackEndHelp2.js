@@ -13,4 +13,14 @@ export default function serviceQuery(someuserid, setSearchResults){
     );
 
     return;
+    
+    // setSearchResults([
+    //     {id:"", title:"Title", Description:"Description", Date:"2024-10-25", Progress:""},
+    //     {id:"", title:"PENIS", Description:"Description", Date:"2024-10-25", Progress:""},
+    //     {id:"", title:"Title", Description:"Description", Date:"2024-10-25", Progress:""},
+    //     {id:"", title:"Title", Description:"Description", Date:"2024-10-25", Progress:""},
+    //     {id:"", title:"Title", Description:"Description", Date:"2024-10-25", Progress:""},
+    //     {id:"", title:"Title", Description:"Description", Date:"2024-10-25", Progress:""},
+    //     {id:"", title:"Title", Description:"Description", Date:"2024-10-25", Progress:""}
+    // ]);
 };

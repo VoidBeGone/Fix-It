@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../style/Payment.css";
+import { gsap } from "gsap";
 
-function Payment() {
-  // State to store payment information
+function Payment({ resetPayment, currentService}) {
+  const modelRef = useRef();
   const [paymentInfo, setPaymentInfo] = useState({
     nameOnCard: '',
     cardNumber: '',
@@ -12,22 +13,54 @@ function Payment() {
     postalCode: '',
   });
 
-  // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPaymentInfo({ ...paymentInfo, [name]: value });
   };
 
-  // Handle form submission (for now it just logs the data)
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Payment Information Submitted:', paymentInfo);
-    // Here you can add logic to submit the payment info to a backend or payment gateway
+    animateOut(() => resetPayment()); // Animate out and close modal on submit
   };
 
+  const animateOut = (callback) => {
+    gsap.to(modelRef.current, {
+      opacity: 0,
+      scale: 0.5,
+      duration: 0.5,
+      ease: "sine.out",
+      onComplete: callback
+    });
+  };
+
+  useEffect(() => {
+    // Animation for modal appearing
+    gsap.fromTo(
+      modelRef.current,
+      { opacity: 0, scale: 0.8 },
+      { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }
+    );
+
+    // Close the modal with animation when clicking outside
+    const handleOutsideClick = (event) => {
+      if (modelRef.current && !modelRef.current.contains(event.target)) {
+        animateOut(() => {
+          resetPayment();
+        });
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [resetPayment]);
+
   return (
-    <div className="PaymentContainer">
-      <div className="PaymentCard">
+    <div className="PaymentOverlay" onClick={() => animateOut(() => resetPayment())}>
+      <div className="PaymentCard" ref={modelRef} onClick={(e) => e.stopPropagation()}>
         <h2>Payment Information</h2>
 
         <form onSubmit={handleSubmit}>
@@ -58,7 +91,7 @@ function Payment() {
             />
           </div>
 
-          <div className="PaymentInput">
+          <div className="input-row">
             <div className="PaymentInput half">
               <label htmlFor="expirationDate">Expiration Date</label>
               <input
