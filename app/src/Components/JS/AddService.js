@@ -66,7 +66,7 @@ function AddService({ resetService }) {
     const timeline = gsap.timeline();
     timeline.fromTo(
       modelRef.current,
-      { opacity: 0, scale: 0.8 },
+      { opacity: 0.8, scale: 0.8 },
       { opacity: 1, scale: 1, duration: 0.5, ease: "sine2.in" }
     );
 
@@ -81,7 +81,7 @@ function AddService({ resetService }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [resetService]);
+  }, []);
 
   return (
     <div className="AddServiceContainer">
