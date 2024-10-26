@@ -16,7 +16,7 @@ function App() {
   const [searchedValue, setSearchValue] = React.useState("search");
   const [signedin, settersignedin] = React.useState(false);
   const [svp, setterServicePage] = React.useState(false);
-  const [userOrcon, setterUserOrCon] = React.useState(true); //cookie here true if contractor
+  const [userOrcon, setterUserOrCon] = React.useState(false); //cookie here true if contractor
 
   const someuserid = "";
 

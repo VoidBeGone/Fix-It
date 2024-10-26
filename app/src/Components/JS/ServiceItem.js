@@ -5,7 +5,7 @@ export default function ServiceItem({results}){
     const Title = results.title;
     const Description =results.Description;
     const Date = results.Date;
-    const ApproveDecline = results.ApproveDecline;
+    const Progress = results.Progress;
 
     return (
         <div className = "SUPContent" >
