@@ -8,7 +8,6 @@ import SearchBar from "./Components/JS/SearchBar.js";
 import Header from "./Components/JS/Header.js";
 import SearcherUserPage from "./Components/JS/ServiceUserPage.js";
 
-
 function App() {
   const [searched, setterSearched] = React.useState(false);
   const [backhome, setterBackhome] = React.useState(true);
@@ -19,6 +18,9 @@ function App() {
   const [address, setterAddress] = React.useState("none");
   
   const userOrcon = false;  //cookie here true if contractor
+=======
+
+>>>>>>> last-delvin
   const someuserid = "";
 
   const setServicePage = () =>{
