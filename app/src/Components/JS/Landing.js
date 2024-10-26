@@ -1,21 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../style/landing.css";
 import LandingItem from "./LandingItem";
+import { fetchJobs } from "./LandingBackendHelp"; // Import the API call function
 
 export default function Landing() {
-    const [jobs] = useState([
-        { id: 1, title: "Fix leaky faucet", client: "John Doe", stage: "Payment Pending", date: "2023-10-01", type: "Plumbing", location: "Toronto" },
-        { id: 2, title: "Install new lighting", client: "Jane Smith", stage: "Payment Received", date: "2023-10-05", type: "Electrical", location: "Mississauga" },
-        { id: 3, title: "Paint living room", client: "Mark Brown", stage: "In Progress", date: "2023-10-08", type: "Painting", location: "Brampton" },
-        { id: 4, title: "Bathroom renovation", client: "Sarah Wilson", stage: "Completed", date: "2023-09-30", type: "Renovation", location: "Scarborough" },
-        { id: 5, title: "Replace water heater", client: "Michael Davis", stage: "Payment Pending", date: "2023-10-12", type: "Plumbing", location: "Toronto" },
-    ]);
+    const [jobs, setJobs] = useState([]); // Initialize with an empty array
+    const [activeStage, setActiveStage] = useState("In Progress");
+    const [loading, setLoading] = useState(true); // Track loading state
+    const [error, setError] = useState(null); // Track error state
 
     const stages = ["In Progress", "Payment Pending", "Payment Received", "Completed"];
-    const [activeStage, setActiveStage] = useState("In Progress");
 
-    // Filter jobs by selected stage
-    const getJobsByStage = (stage) => jobs.filter((job) => job.stage === stage);
+    useEffect(() => {
+        async function loadJobs() {
+            setLoading(true);
+            setError(null);
+            try {
+                const data = await fetchJobs(activeStage); // Fetch jobs by stage from the backend
+                setJobs(data); // Set fetched jobs in state
+            } catch (error) {
+                setError("Could not load jobs.");
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        loadJobs();
+    }, [activeStage]); // Fetch jobs whenever activeStage changes
 
     return (
         <div className="ConstructorLandingPage">
@@ -35,12 +46,16 @@ export default function Landing() {
                 ))}
             </div>
 
-            {/* Job List for the active stage */}
+            {/* Display loading, error, or job list */}
             <div className="JobStageSection">
                 <h2>{activeStage}</h2>
                 <div className="JobList">
-                    {getJobsByStage(activeStage).length > 0 ? (
-                        getJobsByStage(activeStage).map((job) => (
+                    {loading ? (
+                        <p>Loading jobs...</p>
+                    ) : error ? (
+                        <p className="ErrorMessage">{error}</p>
+                    ) : jobs.length > 0 ? (
+                        jobs.map((job) => (
                             <LandingItem
                                 key={job.id}
                                 title={job.title}
@@ -59,3 +74,4 @@ export default function Landing() {
         </div>
     );
 }
+s
