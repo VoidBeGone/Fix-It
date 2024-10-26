@@ -7,7 +7,9 @@ import mongoose from 'mongoose';
 import * as expval from 'express-validator';
 import session from 'express-session';
 
+// mongoose model imports
 import {User} from './models/userModel.mjs';
+import {Job} from './models/jobModel.mjs'
 import {JobRequest} from './models/jobRequestModel.mjs';
 import {Review} from './models/reviewModel.mjs'
 
@@ -37,8 +39,32 @@ app.use(function (req, res, next) {
 });
 
 const isAuthenticated = function (req, res, next) {
-	if (!req.session.username) return res.status(401).end("access denied, not logged in");
+	if (!req.session.uid) return res.status(401).end("access denied, not logged in");
 	next();
+};
+
+const isContractor = function (req, res, next) {
+	if (!req.session.uid) return res.status(401).end("cannot get status when not logged in");
+    User.findById(req.session.uid).exec()
+    .then((usr) => {
+        if(!usr) return res.status(404).end("how is there no user? you're logged in!");
+        if(usr.userType != 'contractor') return res.status(401).end("access denied, you are not a contractor")
+        next();
+    }).catch((err) => {
+        return res.status(500).end("error getting user");
+    })
+};
+
+const isClient = function (req, res, next) {
+	if (!req.session.uid) return res.status(401).end("cannot get status when not logged in");
+    User.findById(req.session.uid).exec()
+    .then((usr) => {
+        if(!usr) return res.status(404).end("how is there no user? you're logged in!");
+        if(usr.userType != 'client') return res.status(401).end("access denied, you are not a client");
+        next();
+    }).catch((err) => {
+        return res.status(500).end("error getting user");
+    })
 };
 
 app.get('/', (req, res) => {
@@ -77,7 +103,6 @@ app.post('/signup',
         }),
         expval.body('userType').custom(async type => {
             if (type !== 'client' && type !== 'contractor') {
-                console.log(type);
                 throw new Error('invalid user type');
             }
         }),
@@ -95,7 +120,7 @@ app.post('/signup',
         const password = req.body.password;
         const email = req.body.email;
         const userType = req.body.userType;
-        const firstName = req.body.firstName
+        const firstName = req.body.firstName;
         const lastName = req.body.lastName;
 
         try {
@@ -135,7 +160,6 @@ app.get('/test/users', async (req, res) => {
     }
 });
 
-
 app.post('/signin', 
     [
         //expval.body('email').trim().isString().isLength({ min: 3, max: 16 }),
@@ -161,7 +185,7 @@ app.post('/signin',
                 }
     
                 // Start a session if the password is valid
-                req.session.username = usr._id;
+                req.session.uid = usr._id;
                 res.setHeader(
                     "Set-Cookie",
                     [
@@ -207,24 +231,25 @@ app.get("/signout/", isAuthenticated, function (req, res, next) {
 });
 
 app.get('/api/me', isAuthenticated, function(req, res, next) {
-    User.findById(req.session.username).exec()
+    User.findById(req.session.uid).exec()
     .then((usr) => {
         if(!usr) {
-            return res.status('did not find user '+req.session.username);
+            return res.status('did not find user '+req.session.uid);
         }
         const data = {
             profile: usr.profile,
-            email: usr.email
+            email: usr.email,
+            userType: usr.userType
         }
         res.json(data);
     }).catch(err => {
         console.log(err);
-        return res.status(500).end("error getting user fefe"+req.session.username);
+        return res.status(500).end("error getting user fefe"+req.session.uid);
     })
 });
 
 app.patch('/api/me', isAuthenticated, function(req, res, next) {
-    User.findById(req.session.username).exec()
+    User.findById(req.session.uid).exec()
     .then((usr) => {
         if (!usr) {
             return res.status(404).send('User not found'); // Return a proper status code
@@ -235,7 +260,7 @@ app.patch('/api/me', isAuthenticated, function(req, res, next) {
         usr.profile.lastName = req.body.profile.lastName;
         usr.profile.age = req.body.profile.age;
         usr.email = req.body.email;
-        usr.profile.bio = "SEXXX";
+        usr.profile.bio = ''; //needs to be req.body.bio 
         console.log(usr)
 
         // Save the updated user
@@ -251,26 +276,50 @@ app.patch('/api/me', isAuthenticated, function(req, res, next) {
 });
 
 /*
- * Creating a job request
+ * Creating a job posting as a contractor
 */
-app.post('/api/job-request', 
+app.post('/api/jobs/', isContractor,
     async (req, res) => {
         const title = req.body.title;
+        const description = req.body.description;
         const date = req.body.date;
         const service = req.body.service;
         const location = req.body.location;
-        const clientId = req.body.clientId;
-        const contractorId = req.body.contractorId;
+        const contractorId = req.session.uid;
     
         try {
             // Create a new job request
-            const jobRequest = new JobRequest({
+            const job = new Job({
                 title: title,
+                description: description,
                 date: date,
                 service: service,
                 location: location,
-                clientId: clientId,
                 contractorId: contractorId
+            });
+            await job.save();
+            res.status(201).json(job);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error : 'An error occurred while creating the job request.'});
+        }
+    }
+);   
+
+/**
+ * Client creating a job request for a specific job
+ */
+app.post('/api/jobs/:jid', isClient,
+    async (req, res) => {
+        const location = req.body.location;
+        const jobId = req.params.jid;
+        
+        try {
+            // Create a new job request
+            const jobRequest = new JobRequest({
+                location: location,
+                clientId: req.session.uid,
+                jobId: jobId
             });
             await jobRequest.save();
 
@@ -282,6 +331,32 @@ app.post('/api/job-request',
     }
 );   
 
+app.get('/api/me/jobs', isAuthenticated, async (req, res) => {
+    User.findById(req.session.uid).exec()
+    .then(usr => {
+        if (!usr) res.status(404).end("how are you not found if you're logged in?");
+        switch(usr.userType) {
+            case 'client':
+                JobRequest.find({clientId: req.session.uid}).exec()
+                .then((jobs) => {
+                    res.json(jobs);
+                }).catch(err => {
+                    return res.status(500).end("error jobs");
+                })
+                break;
+            case 'contractor':
+                Job.find({contractorId: req.session.uid}).exec()
+                .then((jobs) => {
+                    res.json(jobs);
+                }).catch(err => {
+                    return res.status(500).end("error jobs");
+                })
+                break;
+            default:
+                console.error('user type is bad')
+        }
+    })
+})
 
 //get user by id
 app.get('/api/users/:id', async (req, res) => {
@@ -291,8 +366,7 @@ app.get('/api/users/:id', async (req, res) => {
 	}).catch(err => {
 		res.status(404).json(err);
 	});
-})
-
+});
 
 /*
  * Creating a review

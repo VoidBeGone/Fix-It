@@ -4,21 +4,9 @@ const Schema = mongoose.Schema
 //title, date, name of service, address, name
 
 const jobRequestSchema = new Schema({
-    title: {
-        type: String,
-        require: true,
-        trim: true
-    },
-    date: {
-        type: Date,
-        required: true
-    },
-    service: {
-        type: String,
-        required: true,
-    },
-    location: {
-        type: String,
+    jobId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Job',
         required: true
     },
     clientId: {
@@ -26,11 +14,11 @@ const jobRequestSchema = new Schema({
         ref: 'Users',
         required: true
     },
-    contractorId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Users',
-        required: true
-    }
+    status: {
+        type: String,
+        enum: ['pending', 'accepted', 'rejected'],
+        default: 'pending'
+    },
 })
 
 export const JobRequest = mongoose.model('JobRequest', jobRequestSchema);
