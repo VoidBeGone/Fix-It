@@ -205,23 +205,24 @@ app.get("/signout/", isAuthenticated, function (req, res, next) {
 });
 
 app.get('/api/me', isAuthenticated, function(req, res, next) {
-    User.findById(req.session.id).exec()
+    User.findById(req.session.username).exec()
     .then((usr) => {
         if(!usr) {
-            return res.status('did not find user '+req.session.id);
+            return res.status('did not find user '+req.session.username);
         }
         const data = {
             profile: usr.profile,
             email: usr.email
         }
+        res.json(data);
     }).catch(err => {
-        console.error(err);
-        return res.status(500).end("error getting user");
+        console.log(err);
+        return res.status(500).end("error getting user fefe"+req.session.username);
     })
 });
 
 app.patch('/api/me', isAuthenticated, function(req, res, next) {
-    User.findById(req.session.id).exec()
+    User.findById(req.session.username).exec()
     .then((usr) => {
         if (!usr) {
             return res.status(404).send('User not found'); // Return a proper status code
@@ -232,6 +233,8 @@ app.patch('/api/me', isAuthenticated, function(req, res, next) {
         usr.profile.lastName = req.body.profile.lastName;
         usr.profile.age = req.body.profile.age;
         usr.email = req.body.email;
+        usr.profile.bio = "SEXXX";
+        console.log(usr)
 
         // Save the updated user
         return usr.save();

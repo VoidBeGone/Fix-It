@@ -17,9 +17,17 @@ const userSchema = new Schema({
         required: true
     },
     profile: {
-        name: {
+        firstName: {
             type: String, // Added type for name
             default: ''
+        },
+        lastName: {
+            type: String, // Added type for name
+            default: ''
+        },
+        age: {
+            type: Number,
+            default: 0
         },
         bio: {
             type: String,
@@ -44,10 +52,10 @@ const userSchema = new Schema({
     }],
     
     // Client-specific fields
-    budgetRange: {
-        type: String,
-        required: function () { return this.userType === 'client'; }
-    },
+    // budgetRange: {
+    //     type: String,
+    //     required: function () { return this.userType === 'client'; }
+    // },
     
     jobsPosted: [{
         type: Schema.Types.ObjectId,
