@@ -1,66 +1,73 @@
-.background{
+.background {
     background-color: #f5f5f5;
-    width:100vw;
-    height:100vh;
+    width: 100vw;
+    min-height: 100vh;
 }
 
 .SearchPage {
-    top:160px;
+    top: 160px;
     padding: 20px;
-    position:fixed;
+    position: relative; /* Remove fixed position to avoid clipping */
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index:4;
-    width:100vw;
-    height:100vw;
+    z-index: 4;
+    width: 100vw;
+    min-height: calc(100vh - 160px); /* Allows content to take necessary space */
+    overflow-y: auto; /* Enable scrolling within the page */
+    max-height: calc(100vh - 160px); /* Restrict max height based on viewport */
 }
+
 .SearchPageContainer {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    position:relative;
+    position: relative;
 }
 
-.SPSort{
-    margin-bottom:5px;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
+.SPSort {
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
+.SPSortDropdown {
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
-.SPSortDropdown{
-    margin-right:10px;
-    margin-left:10px;
-    cursor:pointer;
-    display:flex;
-    flex-direction:row;
-    justify-content:center;
-    align-items:center;
-}
-.SPSortOption{
-    cursor:pointer;
-    margin:10px;
-    font-size:14px;
-    font-weight:normal;
-    padding:5px;
-    border-radius:20px;
-    transition:background-color 1s ease;
+
+.SPSortOption {
+    cursor: pointer;
+    margin: 10px;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 5px;
+    border-radius: 20px;
+    transition: background-color 1s ease;
 }
 
 .SPSortOption:hover {
     background-color: #dcdcdc;
-  }
+}
+
 .SearchPageContentContainer {
     display: flex;
     flex-direction: column;
-    background-color: #e9e9e9;
+    background-color: #e6e6e6;
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    min-width:95vw;
+    border-radius: 24px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    min-width: 95vw;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    cursor:pointer;
 }
 
 .SPCCTitle {
@@ -69,43 +76,35 @@
     margin-bottom: 10px;
 }
 
-.SPCCHor{
-    display:flex;
-    flex-direction:row;
-    align-items:flex-start;
+.SPCCHor {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
 }
-
 
 .SPCCImage {
     width: 200px;
     height: 200px;
     background-color: #ccc;
     margin-bottom: 10px;
-    flex-shrink:0;
+    flex-shrink: 0;
 }
 
 .SPCCDescription {
     display: flex;
-    flex-grow:1;
+    flex-grow: 1;
     align-items: center;
     font-size: 16px;
     padding-left: 20px;
-    flex-shrink:0;
-    min-width:80%;
+    flex-shrink: 0;
+    min-width: 80%;
 }
 
-.SearchPageContentContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-
-.SPCCReviews{
-    background:url("../media/stars.svg") repeat;
-    background-size:contain;
-    width:200px;
-    height:40px;
-    padding:0px;
-    margin:0px;
+.SPCCReviews {
+    background: url("../media/stars.svg") repeat;
+    background-size: contain;
+    width: 200px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
 }
