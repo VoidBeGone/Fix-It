@@ -1,0 +1,82 @@
+.ConstructorLandingPage {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .StageButtons {
+    margin-top: 10px;
+  }
+  
+  .StageButton {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 8px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .StageButton:hover {
+    background-color: #ddd;
+  }
+  
+  .StageButton.active {
+    background-color: #1dbf73;
+    color: white;
+  }
+  
+  .JobStageSection {
+    margin-top: 20px;
+  }
+  
+  .JobStageSection h2 {
+    font-size: 24px;
+    color: #333;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+  }
+  
+  .JobList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .JobCard {
+    background-color: #f7f7f7;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(50% - 15px);
+  }
+  
+  .JobCard h3 {
+    font-size: 18px;
+    color: #333;
+    margin: 0 0 5px;
+  }
+  
+  .JobCard p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+  }
+  
+  .NoJobs {
+    font-size: 14px;
+    color: #999;
+  }
+  
