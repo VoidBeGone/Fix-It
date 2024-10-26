@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap"; // Import GSAP for animation
 import "../style/SignUpForm.css";
 
-function SignUpForm({ resetSignup, settersignedin}) {
+function SignUpForm({ resetSignup, settersignedin,setAuth}) {
   const modelRef = useRef();
 
   const animateOut = (x) =>{
@@ -38,6 +38,7 @@ function SignUpForm({ resetSignup, settersignedin}) {
   const isignedin = () =>{
     settersignedin();
     resetSignup();
+    setAuth();
   }
 
   

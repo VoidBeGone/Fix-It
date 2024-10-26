@@ -3,13 +3,18 @@ import React from "react";
 import "../style/ProfileForm.css";
 import {gsap} from "gsap";
 
-export default function ProfileForm({resetPU}) {
+export default function ProfileForm({resetPU, setAuth}) {
   const [person, setPerson] = useState({
     firstName: 'Joe',
     lastName: 'Doe',
     age: '25',
     email: 'JoeDoeh@sculpture.com'
   });
+
+    const helper2 = () =>{
+      setAuth();
+      resetPU();
+    }
   const modelRef = useRef();
 
     const animateOut = (onComplete) => {
@@ -52,7 +57,7 @@ export default function ProfileForm({resetPU}) {
     const onClick = (event) =>{
       if (modelRef && !modelRef.current.contains(event.target)){
         animateOut(() => {
-          resetPU(); 
+          helper2(); 
         });        
       }
     };
