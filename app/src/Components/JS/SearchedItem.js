@@ -5,7 +5,6 @@ import ServicePage from "./ServicePage.js";
 export default function SearchedItem({results}){
     const [serviceClicked, setServiceClicked] = React.useState(false);
 
-    const SERVICEID = results.id; //GET YOUR SERVICE ID HERE
     const title =results.title;
     const Image = results.image;
     const description = results.description;
@@ -23,7 +22,7 @@ export default function SearchedItem({results}){
     return(
     <div>
         {serviceClicked && <ServicePage keepServicePage={resetServiceClick} results={results}/>}
-        <div className="SearchPageContentContainer" onClick={setterServiceClick} SERVICEID={SERVICEID}>
+        <div className="SearchPageContentContainer" onClick={setterServiceClick} serviced={results.id}>
         <div className="SPCCTitle">{title}</div>
         <div className="SPCCHor">
           <div className="SPCCImage"></div>

@@ -1,14 +1,15 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap"; 
 import "../style/MenuPopOut.css";
-import ServiceUserpage from "./ServiceUserPage.js";
+
 
 export default function MenuPopOut({
   resetPopOut,
   setLogin,
   setSignup,
-  setcon,
+  setServicePage,
   resetBackHome,
+  setService
 }) {
 
   const modelRef = useRef();
@@ -49,10 +50,12 @@ export default function MenuPopOut({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [handleCloseWithAnimation]); 
+
   const helper = () =>{
+    setServicePage();
     resetBackHome();
-    setcon();
   }
+
   return (
     <div>
       <div className="MenuPopOut" ref={modelRef}>
@@ -65,7 +68,7 @@ export default function MenuPopOut({
           </div>
           <div className="MPOHistory">History</div>
           <div className="MPOService" onClick ={helper}>Services</div>
-          <div className="MPOAddService">Add Service</div>
+          <div className="MPOAddService" onClick={setService}>Add Service</div>
         </div>
       </div>
     </div>
