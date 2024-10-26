@@ -7,8 +7,6 @@ import SearchPage from "./Components/JS/SearchPage.js";
 import SearchBar from "./Components/JS/SearchBar.js";
 import Header from "./Components/JS/Header.js";
 import SearcherUserPage from "./Components/JS/ServiceUserPage.js";
-import Landing from "./Components/JS/Landing.js";
-
 
 
 function App() {
@@ -17,13 +15,16 @@ function App() {
   const [authentication, setterAuth] = React.useState(false);
   const [searchedValue, setSearchValue] = React.useState("search");
   const [signedin, settersignedin] = React.useState(false);
-  const [userOrcon, setterUserOrCon] = React.useState(false);
+  const [svp, setterServicePage] = React.useState(false);
+  const [userOrcon, setterUserOrCon] = React.useState(false); //cookie here true if contractor
 
-  const setcon = () =>{
-    setterUserOrCon(true);
+  const someuserid = "";
+
+  const setServicePage = () =>{
+    setterServicePage(true);
   };
   const resetcon = ()=>{
-    setterUserOrCon(false);
+    setterServicePage(false);
   }
   const setsignin = () =>{
     settersignedin(true);
@@ -52,16 +53,14 @@ function App() {
 
 
   return (
-    // <div>
-    // {/*<FastCube/>*/}
-    // <Header setHome={setHome} setAuth={setAuth} resetAuth ={resetAuth} resetBackHome={resetBackHome} searched={searched} resetSearched ={resetSearched} settersignedin={setsignin} signedin={signedin} setcon={setcon} resetcon={resetcon} />
-    // {!userOrcon && backhome && <Home authentication={authentication} backhome={backhome} setSearched={setSearched} setSearchValue={setSearchValue}/>} 
-    // {!userOrcon && authentication && <SearchBar searched={searchedValue} onSearchSubmit={setSearched} setSearchValue ={setSearchValue}/>}
-    // {!userOrcon && searched && <SearchPage searched = {searchedValue} authentication={authentication}/>}
-    // {userOrcon && <SearcherUserPage setHome={setHome} backhome={backhome} resetcon={resetcon}/>}
-    // </div>
-
-    <Landing/>
+    <div>
+    {/*<FastCube/>*/}
+    <Header setHome={setHome} setAuth={setAuth} resetAuth ={resetAuth} resetBackHome={resetBackHome} searched={searched} resetSearched ={resetSearched} settersignedin={setsignin} signedin={signedin} setServicePage={setServicePage} resetcon={resetcon} userOrcon={userOrcon}/>
+    {!userOrcon && !svp && backhome && <Home authentication={authentication} backhome={backhome} setSearched={setSearched} setSearchValue={setSearchValue}/>} 
+    {!userOrcon && !svp && authentication && <SearchBar searched={searchedValue} onSearchSubmit={setSearched} setSearchValue ={setSearchValue}/>}
+    {!userOrcon && !svp && searched && <SearchPage searched = {searchedValue} authentication={authentication}/>}
+    {!userOrcon && svp && <SearcherUserPage setHome={setHome} backhome={backhome} resetcon={resetcon} someuserid={someuserid}/>}
+    </div>
 
   );
 }
