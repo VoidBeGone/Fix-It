@@ -1,0 +1,57 @@
+/* jobCompletedPage.css */
+
+.JobCompletedPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f3f4f6;
+    color: #333;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.JobCompletedContainer {
+    text-align: center;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+.JobCompletedContainer h1 {
+    color: #4caf50;
+    font-size: 2rem;
+    margin: 0;
+}
+
+.JobCompletedContainer h2 {
+    font-size: 1.2rem;
+    margin-top: 5px;
+    color: #27ae60;
+}
+
+.JobDetails {
+    margin: 20px 0;
+    text-align: left;
+    font-size: 1rem;
+    color: #333;
+}
+
+.BackButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.BackButton:hover {
+    background-color: #45a049;
+}
