@@ -1,31 +1,60 @@
-import React, { useState } from 'react';
-import '../style/UserReview.css'; 
+import React, { useState, useRef, useEffect } from 'react';
+import "../style/UserReview.css";
+import { gsap } from "gsap";
 
-function UserReview() {
-  // State to store rating and comment
+function UserReview({ resetUserReview, setHome }) {
+  const modelRef = useRef();
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
-  // Handle rating change
   const handleRatingChange = (newRating) => {
     setRating(newRating);
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can send this data to a backend or process it here
     console.log('Review Submitted:', { rating, comment });
-    // Reset form after submission
-    setRating(0);
-    setComment('');
+    animateOut(() => resetUserReview()); // Close modal after submitting
   };
 
-  return (
-    <div className="review-container">
-      <div className="review-card">
-        <h2>Rate the Constructor's Work</h2>
+  const animateOut = (callback) => {
+    gsap.to(modelRef.current, {
+      opacity: 0,
+      scale: 0.5,
+      duration: 0.5,
+      ease: "sine.out",
+      onComplete: callback
+    });
+  };
 
+  useEffect(() => {
+    // Animation for modal appearing
+    gsap.fromTo(
+      modelRef.current,
+      { opacity: 0, scale: 0.8 },
+      { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }
+    );
+
+    // Close the modal with animation when clicking outside
+    const handleOutsideClick = (event) => {
+      if (modelRef.current && !modelRef.current.contains(event.target)) {
+        animateOut(() => {
+          resetUserReview(); // Close the review modal
+        });
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [resetUserReview, setHome]);
+
+  return (
+    <div className="ReviewOverlay" onClick={() => animateOut(resetUserReview)}>
+      <div className="review-card" ref={modelRef} onClick={(e) => e.stopPropagation()}>
+        <h2>Rate the Constructor's Work</h2>
         <form onSubmit={handleSubmit}>
           <div className="rating-group">
             <label>Rating</label>

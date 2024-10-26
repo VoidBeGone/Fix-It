@@ -66,7 +66,6 @@ export default function MenuPopOut({
           <div className="MPOLogIn" onClick={setLogin}>
             LogIn
           </div>
-          <div className="MPOHistory">History</div>
           <div className="MPOService" onClick ={helper}>Services</div>
           <div className="MPOAddService" onClick={setService}>Add Service</div>
         </div>
