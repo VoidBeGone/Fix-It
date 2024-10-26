@@ -14,7 +14,7 @@ const jobSchema = new Schema({
     },
     price: {
         type: Number,
-        default: 10000
+        default: 100
     },
     location: {
         type: String,
@@ -28,6 +28,8 @@ const jobSchema = new Schema({
     imageId: {
         type: String
     }
-})
+});
+
+jobSchema.index({ title: 'text', description: 'text' });
 
 export const Job = mongoose.model('Job', jobSchema);

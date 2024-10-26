@@ -355,8 +355,47 @@ app.get('/api/me/jobs', isAuthenticated, async (req, res) => {
             default:
                 console.error('user type is bad')
         }
-    })
-})
+    });
+});
+
+app.get('/api/jobs/search', async (req, res) => {
+    try {
+        const searchQuery = req.query.q || "";  // Get the search query from the request
+
+        const jobs = await Job.aggregate([
+            {
+                $search: {
+                    index: "default",
+                    compound: {
+                        should: [
+                            {
+                                autocomplete: {
+                                    query: searchQuery, // Use the search query
+                                    path: "title" // Search in the title
+                                }
+                            },
+                            {
+                                autocomplete: {
+                                    query: searchQuery, // Use the same search query
+                                    path: "description" // Search in the description
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ]);
+
+        res.json(jobs); // Send the retrieved jobs
+    } catch (err) {
+        console.error(err); // Log the error for debugging
+        res.status(500).send("Error finding jobs");
+    }
+});
+
+
+
+
 
 //get user by id
 app.get('/api/users/:id', async (req, res) => {
