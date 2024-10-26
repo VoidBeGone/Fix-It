@@ -54,11 +54,13 @@ function ScheduleModal({ closeModal,serviceID}) {
     animateOut(closeModal);
   };
 
+  //JASON IMPLMEENT HERE 
   const handleSchedule = () => {
     const serviceid = serviceID;
     const selectedDate = document.getElementById("date").value;
     const selectedTime = document.getElementById("time").value;
     
+    //JASON ADD YOURT LOGIC HERE
     console.log("ID", serviceid);
     console.log("Selected Date:", selectedDate);
     console.log("Selected Time:", selectedTime);
