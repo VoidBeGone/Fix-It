@@ -1,27 +1,11 @@
-import React, { useState, useLayoutEffect, useRef } from "react";
+import React, {useLayoutEffect, useRef } from "react";
 import "../style/home.css";
-import ScheduleModal from "./ScheduleModal";
 import { gsap } from "gsap";
 import SplineElement from "./Spline.js";
 
-function Home({ authentication }) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+function Home({ authentication,backhome}) {
   const homeContainerRef = useRef(null);
   const splineRef = useRef(null); // Reference for the Spline component
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
-    setIsDropdownOpen(false);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   // Ensure animation happens after DOM updates with useLayoutEffect
   useLayoutEffect(() => {
@@ -52,7 +36,7 @@ function Home({ authentication }) {
         ease: "power2.in",
       });
     };
-  }, [authentication]);
+  }, [authentication,backhome]);
 
   return (
     <div>
@@ -71,7 +55,6 @@ function Home({ authentication }) {
             <button className="SearchButton">Search here</button>
           </div>
               
-          {isModalOpen && <ScheduleModal closeModal={closeModal} />}
         </div>
       </div>
       
