@@ -46,6 +46,7 @@ function SignInForm({resetLogin,settersignedin, setAuth, resetAuth}) {
         setAuth();
     };
     const handleSubmit = async (e) => {
+
         e.preventDefault();
         try {
             const response = await fetch('/signin', {
