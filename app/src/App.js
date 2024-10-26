@@ -8,7 +8,6 @@ import SearchBar from "./Components/JS/SearchBar.js";
 import Header from "./Components/JS/Header.js";
 import SearcherUserPage from "./Components/JS/ServiceUserPage.js";
 
-
 function App() {
   const [searched, setterSearched] = React.useState(false);
   const [backhome, setterBackhome] = React.useState(true);
@@ -16,7 +15,6 @@ function App() {
   const [searchedValue, setSearchValue] = React.useState("search");
   const [signedin, settersignedin] = React.useState(false);
   const [svp, setterServicePage] = React.useState(false);
-  const [userOrcon, setterUserOrCon] = React.useState(false); //cookie here true if contractor
 
   const someuserid = "";
 
