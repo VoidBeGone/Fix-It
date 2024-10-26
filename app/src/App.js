@@ -18,7 +18,7 @@ function App() {
   const [svp, setterServicePage] = React.useState(false);
   const [address, setterAddress] = React.useState("none");
   
-  const userOrcon = true;  //cookie here true if contractor
+  const userOrcon = false;  //cookie here true if contractor
   const someuserid = "";
 
   const setServicePage = () =>{
