@@ -17,7 +17,7 @@ function App() {
   const [searchedValue, setSearchValue] = React.useState("search");
   const [signedin, settersignedin] = React.useState(false);
   const [userOrcon, setterUserOrCon] = React.useState(false);
-
+  const someuserid = "";
   const setcon = () =>{
     setterUserOrCon(true);
   };
@@ -53,11 +53,11 @@ function App() {
   return (
     <div>
     {/*<FastCube/>*/}
-    <Header setHome={setHome} setAuth={setAuth} resetAuth ={resetAuth} resetBackHome={resetBackHome} searched={searched} resetSearched ={resetSearched} settersignedin={setsignin} signedin={signedin} setcon={setcon} resetcon={resetcon} />
+    <Header setHome={setHome} setAuth={setAuth} resetAuth ={resetAuth} resetBackHome={resetBackHome} searched={searched} resetSearched ={resetSearched} settersignedin={setsignin} signedin={signedin} setcon={setcon} resetcon={resetcon}/>
     {!userOrcon && backhome && <Home authentication={authentication} backhome={backhome} setSearched={setSearched} setSearchValue={setSearchValue}/>} 
     {!userOrcon && authentication && <SearchBar searched={searchedValue} onSearchSubmit={setSearched} setSearchValue ={setSearchValue}/>}
     {!userOrcon && searched && <SearchPage searched = {searchedValue} authentication={authentication}/>}
-    {userOrcon && <SearcherUserPage setHome={setHome} backhome={backhome} resetcon={resetcon}/>}
+    {userOrcon && <SearcherUserPage setHome={setHome} backhome={backhome} resetcon={resetcon} someuserid={someuserid}/>}
     </div>
 
   );

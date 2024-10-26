@@ -2,9 +2,14 @@ import "../style/ServiceUserPage.css";
 import React from "react";
 import {gsap} from "gsap";
 import ServiceItem from "./ServiceItem";
+import serviceQuery from "./JasonBackEndHelp2.js";
 
 
-export default function SearcherUserPage({setHome, backhome, resetcon}){
+export default function SearcherUserPage({setHome, backhome, resetcon, someuserid}){
+
+    const [serviceResult, setServiceResults] = React.useState([]); // Initialize with an empty array
+    const [loading, setLoading] = React.useState(true); // Track loading state
+
     const modelRef = React.useRef();
     //add animation when leaving this page 
     const animateOut = (x) =>{
@@ -27,14 +32,27 @@ export default function SearcherUserPage({setHome, backhome, resetcon}){
         }
     },[setHome])
 
+  React.useEffect(() => {
+    setLoading(true); // Start loading
+    serviceQuery(someuserid, (results) => {
+        setServiceResults(Array.isArray(results) ? results : []);
+      setLoading(false); // End loading after results are set
+    });
+  }, [someuserid]);
 
 
     return (
       <div className = "SearchUserPage">
         <div className = "SUPHolderContainer"ref={modelRef}>
-            <ServiceItem setHome={setHome} backhome={backhome} resetcon={resetcon}/>
-            <ServiceItem setHome={setHome} backhome={backhome} resetcon={resetcon}/>
-            <ServiceItem setHome={setHome} backhome={backhome} resetcon={resetcon}/>
+        {loading ? (
+              <div>Loading...</div> // Show loading text while waiting for data
+            ) : serviceResult.length > 0 ? (
+                serviceResult.map((result, index) => (
+                <ServiceItem key={result.id || index} results={result} /> // Spread `result` props directly
+              ))
+            ) : (
+              <div>No results found.</div> // Show fallback if no results
+            )}
         </div>
       </div>  
     );

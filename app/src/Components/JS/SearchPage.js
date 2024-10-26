@@ -81,7 +81,7 @@ export default function SearchPage({ searched }) {
               <div>Loading...</div> // Show loading text while waiting for data
             ) : searchResults.length > 0 ? (
               searchResults.map((result, index) => (
-                <SearchedItem key ={result.id || index}results={result} /> // Spread `result` props directly
+                <SearchedItem key={result.id || index} results={result} /> // Spread `result` props directly
               ))
             ) : (
               <div>No results found.</div> // Show fallback if no results
