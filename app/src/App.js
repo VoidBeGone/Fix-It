@@ -19,7 +19,7 @@ function App() {
   const [address, setterAddress] = React.useState("none");
   const [paymentOpen, setterPayment] = React.useState(false);
   const [UserReviewStatus, setURS] = React.useState(false);
-  const userOrcon = false;  //cookie here true if contractor
+  const userOrcon = true;  //cookie here true if contractor
   const someuserid = "";
 
   const setServicePage = () =>{setterServicePage(true);};
