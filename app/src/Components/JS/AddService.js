@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../style/AddService.css'; 
 
-function AddService() {
+function AddService({resetService}) {
   // State to store service information
   const [serviceInfo, setServiceInfo] = useState({
     title: '',
@@ -11,7 +11,7 @@ function AddService() {
     location: '',
     image: null, // New image field
   });
-
+  const modelRef = React.useRef();
   // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,11 +44,26 @@ function AddService() {
       location: '',
       image: null, // Reset image field
     });
+    resetService();
   };
 
+  React.useEffect(()=>{
+    const onClick = (event)=>{
+      if (modelRef && !modelRef.current.contains(event.target)){
+        resetService();
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    
+    return ()=>{
+      document.removeEventListener("mousedown", onClick);
+    }
+  },[resetService])
+
+  
   return (
     <div className="AddServiceContainer">
-      <div className="AddServiceCard">
+      <div className="AddServiceCard" ref={modelRef}>
         <h2>Add a New Service</h2>
 
         <form onSubmit={handleSubmit}>
