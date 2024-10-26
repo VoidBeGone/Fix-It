@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import "../style/home.css";
 
-function ScheduleModal({ closeModal }) {
+function ScheduleModal({ closeModal,serviceID}) {
   const modalRef = useRef();
 
   // Function to animate the modal out
@@ -54,6 +54,22 @@ function ScheduleModal({ closeModal }) {
     animateOut(closeModal);
   };
 
+  //JASON IMPLMEENT HERE 
+  const handleSchedule = () => {
+    const serviceid = serviceID;
+    const selectedDate = document.getElementById("date").value;
+    const selectedTime = document.getElementById("time").value;
+    
+    //JASON ADD YOURT LOGIC HERE
+    console.log("ID", serviceid);
+    console.log("Selected Date:", selectedDate);
+    console.log("Selected Time:", selectedTime);
+
+    handleClose();
+  };
+
+
+
   return (
     <div className="ModalOverlay">
       <div className="ModalContent" ref={modalRef}>
@@ -61,21 +77,31 @@ function ScheduleModal({ closeModal }) {
         <div className="TimeSelection">
           <label htmlFor="date">Date</label>
           <select id="date">
-            <option>Today, Wed, Oct 23</option>
-            <option>Tomorrow, Thu, Oct 24</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
           </select>
 
           <label htmlFor="time">Time</label>
           <select id="time">
-            <option>3:45 AM - 4:15 AM</option>
-            <option>4:15 AM - 4:45 AM</option>
+            <option>9am</option>
+            <option>10am</option>
+            <option>11am</option>
+            <option>12pm</option>
+            <option>1pm</option>
+            <option>2pm</option>
+            <option>3pm</option>
+            <option>4pm</option>
+            <option>5pm</option>
+
           </select>
         </div>
-        <button className="ScheduleButton" onClick={handleClose}>
+        <button className="ScheduleButton" onClick={handleSchedule}>
           Schedule
-        </button>
-        <button className="DeliverNowButton" onClick={handleClose}>
-          Schedule now
         </button>
       </div>
     </div>

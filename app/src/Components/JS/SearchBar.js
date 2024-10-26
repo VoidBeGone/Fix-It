@@ -8,10 +8,7 @@ export default function Searchbar({ searched, onSearchSubmit, setSearchValue }) 
     event.preventDefault();
 
     setSearchValue(formValue);
-    
     onSearchSubmit();
-
-
     setFormValue(""); 
   };
 
