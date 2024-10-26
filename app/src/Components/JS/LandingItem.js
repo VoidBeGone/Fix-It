@@ -2,6 +2,14 @@ import "../style/landing.css";
 import React from "react";
 
 export default function LandingItem({ title, client, date, type, location, stage }) {
+
+    const Title = {title};
+    const Client = {client};
+    const Date = {date};
+    const Type = {type};
+    const Location = {location};
+    const Status = {stage};
+
     return (
         <div className="JobCard">
             <h3>{title}</h3>
