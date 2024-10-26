@@ -16,14 +16,9 @@ function App() {
   const [searchedValue, setSearchValue] = React.useState("search");
   const [signedin, settersignedin] = React.useState(false);
   const [svp, setterServicePage] = React.useState(false);
-<<<<<<< HEAD
   const [address, setterAddress] = React.useState("none");
   
-  const userOrcon = false;  //cookie here true if contractor
-=======
-  const [userOrcon, setterUserOrCon] = React.useState(true); //cookie here true if contractor
-
->>>>>>> last-delvin
+  const userOrcon = true;  //cookie here true if contractor
   const someuserid = "";
 
   const setServicePage = () =>{
