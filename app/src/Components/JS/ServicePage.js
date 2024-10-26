@@ -1,8 +1,8 @@
 import React from "react";
-import "../style/ServicePage.css";
 import ScheduleModal from "./ScheduleModal.js";
 import {gsap} from "gsap";
- 
+import "../style/helper2.css";
+
 export default function ServicePage({keepServicePage, results,someuserid, address}){
 
 

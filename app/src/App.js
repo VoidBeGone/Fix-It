@@ -12,7 +12,7 @@ import Landing from "./Components/JS/Landing.js";
 function App() {
   const [searched, setterSearched] = React.useState(false);
   const [backhome, setterBackhome] = React.useState(true);
-  const [authentication, setterAuth] = React.useState(false);
+  const [authentication, setterAuth] = React.useState(false); //set to true if login
   const [searchedValue, setSearchValue] = React.useState("search");
   const [signedin, settersignedin] = React.useState(false);
   const [svp, setterServicePage] = React.useState(false);
