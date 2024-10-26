@@ -1,43 +1,47 @@
 import Spline from '@splinetool/react-spline';
+import { useRef, useState } from 'react';
+import { gsap } from 'gsap';
 
-export default function Home() {
+export default function SplineElement() {
+  const wrenchRef = useRef(null);
+  const hammerRef = useRef(null);
+
+
   return (
-    <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-      {/* Spline 3D Object */}
+    <div style={{ position: 'fixed', width: '100vw', height: '100vh' }}>
+      {/* Wrench */}
       <Spline
         scene="https://prod.spline.design/X4-YlQ36HwYEXpw0/scene.splinecode"
+        ref={wrenchRef}
         style={{
-          position: 'absolute',
-          top: '50%',         // Align vertically in the middle
-          left: '10%',        // Position the wrench on the left side
-          width: '30vw',      // Control size (optional)
-          height: 'auto',
-          zIndex: -1          // Ensure it goes behind the content
+          position: 'fixed',
+          top: '50%',
+          left: '10%', // Adjust starting point
+          width: '20vw',
+          height: '100vh',
+          background: 'transparent',
+          zIndex: -1,
+          transform: 'translateY(-50%)',
+          cursor: 'pointer',
         }}
       />
-      
-      {/* Main Content */}
-      <main style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{
-          margin: '0 auto',
-          width: '60vw',
-          height: '300px',
-          background: '#fff',
-          borderRadius: '10px',
-          boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-          textAlign: 'center',
-          padding: '20px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          <h1>Order Service near you</h1>
-          <input type="text" placeholder="Enter delivery address" style={{ marginBottom: '10px', padding: '10px' }} />
-          <button style={{ marginRight: '10px' }}>Schedule now</button>
-          <button>Search here</button>
-        </div>
-      </main>
+
+      {/* Hammer */}
+      <Spline
+        scene="https://prod.spline.design/SVgjv2TO5s8NDQ2N/scene.splinecode"
+        ref={hammerRef}
+        style={{
+          position: 'fixed',
+          top: '50%',
+          right: '10%', // Adjust starting point
+          width: '20vw',
+          height: '100vh',
+          background: 'transparent',
+          zIndex: -1,
+          transform: 'translateY(-50%)',
+          cursor: 'pointer',
+        }}
+      />
     </div>
   );
 }

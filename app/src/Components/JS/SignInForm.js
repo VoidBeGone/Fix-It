@@ -2,7 +2,7 @@ import React, {useState, useRef} from "react";
 import "../style/SignInForm.css";
 import {gsap} from "gsap";
 
-function SignInForm({resetLogin,settersignedin}) {
+function SignInForm({resetLogin,settersignedin, setAuth}) {
     const modelRef = React.useRef();
 
     const animateOut = (x) =>{
@@ -41,6 +41,7 @@ function SignInForm({resetLogin,settersignedin}) {
     const isignedin = () =>{
         settersignedin();
         resetLogin();
+        setAuth();
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
