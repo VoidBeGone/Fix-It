@@ -1,11 +1,15 @@
 .ServicePage{
     background-color:transparent;
-    width:100%;
-    height:100%;
+    width:100vw;
+    height:100vh;
+    top:0;
+    left:0;
     position:fixed;
     display:flex;
     text-align:center;
     justify-content: center; 
+    align-items: center;
+    justify-content:center;
     z-index:5;
     overflow: hidden;
 }
@@ -41,9 +45,12 @@
 }
 
 .SPReviews{
-    padding:10px;
+    margin-top:10px;
     flex-shrink:0;
-    font-weight:bold;
+    width:200px;
+    height:40px;
+    background:url("../media/stars.svg") repeat-x;
+    background-size:contain;
 }
 
 .SPDescription {

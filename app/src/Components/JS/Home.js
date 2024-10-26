@@ -1,28 +1,19 @@
-import React, { useState, useLayoutEffect, useRef } from "react";
+import React, {useLayoutEffect, useRef } from "react";
 import "../style/home.css";
-import ScheduleModal from "./ScheduleModal";
 import { gsap } from "gsap";
 import SplineElement from "./Spline.js";
 
-function Home({ authentication }) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+function Home({ authentication,backhome,setSearched,setSearchValue}) {
   const homeContainerRef = useRef(null);
   const splineRef = useRef(null); // Reference for the Spline component
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
 
-  const openModal = () => {
-    setIsModalOpen(true);
-    setIsDropdownOpen(false);
+  const handleSearch = (event) => {
+    event.preventDefault(); 
+    console.log("Hello");
+    setSearched();
+    setSearchValue("SET THIS TO BE WHATEVER VALUE YOU WANT");
   };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   // Ensure animation happens after DOM updates with useLayoutEffect
   useLayoutEffect(() => {
     const timeline = gsap.timeline();
@@ -52,28 +43,31 @@ function Home({ authentication }) {
         ease: "power2.in",
       });
     };
-  }, [authentication]);
+  }, [authentication,backhome]);
 
   return (
     <div>
       <div className="Home">
-        <div className="HomeContainer" ref={homeContainerRef}>
-          <div className="HomeTitle">Order Service near you</div>
+      <div className="HomeContainer" ref={homeContainerRef}>
+        <div className="HomeTitle">Order Service near you</div>
 
-          <div className="AddressForm">
-            <input type="text" className="ServiceInput" placeholder="Enter Service"/>
+        <div className="AddressForm">
+          {/* Wrap the inputs and button in a form element */}
+          <form onSubmit={handleSearch}>
+            <input type="text" className="ServiceInput" placeholder="Enter Service" name="service" required />
             <input
               type="text"
               className="AddressInput"
               placeholder="Enter delivery address"
+              name="address"
+              required
             />
-
-            <button className="SearchButton">Search here</button>
-          </div>
-              
-          {isModalOpen && <ScheduleModal closeModal={closeModal} />}
+            <button type="submit" className="SearchButton">Search here</button>
+          </form>
         </div>
       </div>
+    </div>
+
       
       {/* Spline component with a fade-in effect */}
       <div ref={splineRef}>

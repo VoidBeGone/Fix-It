@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../style/SearchPage.css";
-import ServicePage from "./ServicePage.js";
 import { gsap } from "gsap";
+import SearchedItem from "./SearchedItem.js";
+import searchQuery from "./JasonBackEndHelp.js";
 
 export default function SearchPage({ searched }) {
-  const description = `"Description"`;
   const modelRef = useRef();
-  const sortDropdownRef = useRef(); 
-  const [serviceClicked, setServiceClicked] = useState(false);
-  const [isSortOpen, setIsSortOpen] = useState(false); // State to handle sort dropdown visibility
-
+  const sortDropdownRef = useRef();
+  const [isSortOpen, setIsSortOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState([]); // Initialize with an empty array
+  const [loading, setLoading] = useState(true); // Track loading state
 
   useEffect(() => {
     const timeline = gsap.timeline();
@@ -19,14 +19,6 @@ export default function SearchPage({ searched }) {
       { opacity: 1, duration: 0.2, ease: "none" }
     );
   }, [searched]);
-
-  const setterServiceClick = () => {
-    setServiceClicked(true);
-  };
-
-  const resetServiceClick = () => {
-    setServiceClicked(false);
-  };
 
   const toggleSortOptions = () => {
     if (isSortOpen) {
@@ -39,7 +31,7 @@ export default function SearchPage({ searched }) {
     } else {
       gsap.to(sortDropdownRef.current, {
         opacity: 1,
-        height: "auto", 
+        height: "auto",
         duration: 0.5,
         ease: "power2.out",
       });
@@ -47,16 +39,22 @@ export default function SearchPage({ searched }) {
     setIsSortOpen(!isSortOpen);
   };
 
-  // Handle sorting (implement sorting logic as needed)
   const handleSort = (option) => {
     console.log("Sorting by:", option);
-    // Add your sorting logic here
-    toggleSortOptions(); // Close dropdown after selecting
+    toggleSortOptions();
   };
+
+  // Fetch search results from backend
+  useEffect(() => {
+    setLoading(true); // Start loading
+    searchQuery(searched, (results) => {
+      setSearchResults(Array.isArray(results) ? results : []);
+      setLoading(false); // End loading after results are set
+    });
+  }, [searched]);
 
   return (
     <div className="background">
-      {serviceClicked && <ServicePage keepServicePage={resetServiceClick} />}
       <div className="SearchPage" ref={modelRef}>
         <div className="SPSort" onClick={toggleSortOptions}>
           Sort
@@ -64,12 +62,12 @@ export default function SearchPage({ searched }) {
         <div
           className="SPSortDropdown"
           ref={sortDropdownRef}
-          style={{ opacity: 0, height: 0, overflow: "hidden" }} 
+          style={{ opacity: 0, height: 0, overflow: "hidden" }}
         >
-          <div className="SPSortOption" onClick={() => handleSort("Rating")}>
-          Price
-          </div>
           <div className="SPSortOption" onClick={() => handleSort("Price")}>
+            Price
+          </div>
+          <div className="SPSortOption" onClick={() => handleSort("Rating")}>
             Rating
           </div>
           <div className="SPSortOption" onClick={() => handleSort("Date")}>
@@ -79,14 +77,15 @@ export default function SearchPage({ searched }) {
 
         <div className="SearchPageContainer">
           <div className="SearchPageContent">
-            <div className="SearchPageContentContainer" onClick={setterServiceClick}>
-              <div className="SPCCTitle">Title</div>
-              <div className="SPCCHor">
-                <div className="SPCCImage"></div>
-                <div className="SPCCDescription">{description}</div>
-              </div>
-              <div className="SPCCReviews"></div>
-            </div>
+            {loading ? (
+              <div>Loading...</div> // Show loading text while waiting for data
+            ) : searchResults.length > 0 ? (
+              searchResults.map((result) => (
+                <SearchedItem results={result} /> // Spread `result` props directly
+              ))
+            ) : (
+              <div>No results found.</div> // Show fallback if no results
+            )}
           </div>
         </div>
       </div>
