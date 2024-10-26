@@ -3,7 +3,7 @@ import "../style/ServicePage.css";
 import ScheduleModal from "./ScheduleModal.js";
 import {gsap} from "gsap";
 
-export default function ServicePage({keepServicePage}){
+export default function ServicePage({keepServicePage, SERVICEID}){
     const description = `Description`;
 
     const modelRef = React.useRef();

@@ -2,16 +2,18 @@ import React from "react";
 import "../style/SignInForm.css";
 import {gsap} from "gsap";
 
-function SignInForm({resetLogin,settersignedin, setAuth}) {
+function SignInForm({resetLogin,settersignedin, setAuth, resetAuth}) {
     const modelRef = React.useRef();
-
-    const animateOut = (x) =>{
-        gsap.to(modelRef.current,{opacity:0, scale:0.5, duration:0.5, ease:"sine.out"
-            ,onComplete:x
+    const animateOut = (qwe) =>{
+        gsap.to(modelRef.current,{opacity:0, scale:0.5, duration:0.5, ease:"sine.out",onComplete: qwe
         });
     };
-    
+
     React.useEffect(()=>{
+        const helper2 = ()=>{
+            resetAuth();
+            resetLogin();
+        }
         const timeline = gsap.timeline();
         timeline.fromTo(
             modelRef.current,
@@ -22,7 +24,7 @@ function SignInForm({resetLogin,settersignedin, setAuth}) {
         const onClick = (event) =>{
             if (modelRef && !modelRef.current.contains(event.target)){
                 animateOut(()=>{
-                    resetLogin();
+                    helper2();
                 });
 
             }

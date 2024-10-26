@@ -30,11 +30,13 @@ function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearc
         setterSignin(false);
         setterLogin(true);
         setPopOutClicked(false);
+        resetBackHome();
         }
     };
 
     const resetLogin = () =>{
         setterLogin(false);
+        setHome();
     };
 
     const setSignUp = () =>{
@@ -42,11 +44,13 @@ function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearc
         setterLogin(false);
         setPopOutClicked(false);
         setterSignin(true);
+        resetBackHome();
         }
     };
 
     const resetSignUp = () =>{
         setterSignin(false);
+        setHome();
     };
 
     const returnBack = () =>{
@@ -59,8 +63,8 @@ function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearc
     return (
         <div>
             {profileUser && <ProfileForm resetPU={resetPU} setAuth={setAuth} />}
-            {login && <SignInForm resetLogin = {resetLogin} settersignedin={settersignedin}  setAuth={setAuth}/>}
-            {signin && <SignUpForm resetSignup = {resetSignUp} settersignedin={settersignedin} setAuth={setAuth}/>}
+            {login && <SignInForm resetLogin = {resetLogin} settersignedin={settersignedin}  setAuth={setAuth} resetAuth={resetAuth} />}
+            {signin && <SignUpForm resetSignup = {resetSignUp} settersignedin={settersignedin} setAuth={setAuth} resetAuth={resetAuth}/>}
             {popOutClicked && <MenuPopOut resetPopOut={resetPopOut} setLogin = {setLogin} setSignup = {setSignUp} setcon={setcon} resetcon={resetcon} resetBackHome={resetBackHome}/>}
             <div className="Header">
                 <div className="HeaderLeft">
