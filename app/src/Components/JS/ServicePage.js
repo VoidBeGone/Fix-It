@@ -3,7 +3,14 @@ import "../style/ServicePage.css";
 import ScheduleModal from "./ScheduleModal.js";
 import {gsap} from "gsap";
 
-export default function ServicePage({keepServicePage, SERVICEID, title, Image, description, reviews}){
+export default function ServicePage({keepServicePage, results}){
+
+
+    const SERVICEID = results.id; 
+    const title =results.title;
+    const Image = results.image;
+    const description = results.description;
+    const reviews = results.reviews;
     const modelRef = React.useRef();
 
     const [serviceSchedule, setterServiceSchedule] = React.useState(false);
@@ -60,7 +67,7 @@ export default function ServicePage({keepServicePage, SERVICEID, title, Image, d
         <>
         {serviceSchedule && <ScheduleModal closeModal = {resetServiceSchedule}/>}
         <div className = "ServicePage">
-            <div className="ServicePageContainer" ref={modelRef}>
+            <div className="ServicePageContainer" ref={modelRef} SERVICEID={SERVICEID}>
                 <div className = "SPTitle">{title}</div>
                 <div className = "SPImage"></div>
                 <div className = "SPReviews"></div>

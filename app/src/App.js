@@ -5,9 +5,10 @@ import './Components/JS/Header.js';
 import Home from "./Components/JS/Home.js";
 import SearchPage from "./Components/JS/SearchPage.js";
 import SearchBar from "./Components/JS/SearchBar.js";
-import FastCube from "./Components/JS/FastCube.js";
 import Header from "./Components/JS/Header.js";
 import SearcherUserPage from "./Components/JS/ServiceUserPage.js";
+
+
 
 function App() {
   const [searched, setterSearched] = React.useState(false);
