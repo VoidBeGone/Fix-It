@@ -69,7 +69,7 @@ function App() {
   return (
     <div>
     {/*<FastCube/>*/}
-    <Header setHome={setHome} setAuth={setAuth} resetAuth ={resetAuth} resetBackHome={resetBackHome} searched={searched} resetSearched ={resetSearched} settersignedin={setsignin} signedin={signedin} setServicePage={setServicePage} resetcon={resetcon} userOrcon={userOrcon}/>
+    <Header setHome={setHome} setAuth={setAuth} resetAuth ={resetAuth} resetBackHome={resetBackHome} searched={searched} resetSearched ={resetSearched} settersignedin={setsignin} signedin={signedin} setterServicePage={setterServicePage} resetcon={resetcon} userOrcon={userOrcon}/>
     {!userOrcon && !svp && backhome && <Home authentication={authentication} backhome={backhome} setSearched={setSearched} setSearchValue={setSearchValue}/>} 
     {!userOrcon && !svp && authentication && <SearchBar searched={searchedValue} onSearchSubmit={setSearched} setSearchValue ={setSearchValue}/>}
     {!userOrcon && !svp && searched && <SearchPage searched = {searchedValue} authentication={authentication}/>}
