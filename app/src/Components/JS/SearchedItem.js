@@ -6,6 +6,11 @@ export default function SearchedItem({searched}){
     const [serviceClicked, setServiceClicked] = React.useState(false);
 
     const SERVICEID = ""; //GET YOUR SERVICE ID HERE
+    const title ='TITLE';
+    const Image = '';
+    const description = 'PENIS';
+    const reviews = '';
+
     const setterServiceClick = () => {
         setServiceClicked(true);
       };
@@ -17,12 +22,14 @@ export default function SearchedItem({searched}){
       
     return(
     <div>
-        {serviceClicked && <ServicePage keepServicePage={resetServiceClick} SERVICEID={SERVICEID}/>}
+        {serviceClicked && <ServicePage keepServicePage={resetServiceClick} SERVICEID={SERVICEID} title={title} Image={Image} description={description}
+        reviews={reviews}
+        />}
         <div className="SearchPageContentContainer" onClick={setterServiceClick} SERVICEID={SERVICEID}>
-        <div className="SPCCTitle">Title</div>
+        <div className="SPCCTitle">{title}</div>
         <div className="SPCCHor">
           <div className="SPCCImage"></div>
-          <div className="SPCCDescription">Penis</div>
+          <div className="SPCCDescription">{description}</div>
         </div>
         <div className="SPCCReviews"></div>
       </div>

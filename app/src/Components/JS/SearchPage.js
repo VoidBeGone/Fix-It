@@ -3,10 +3,8 @@ import "../style/SearchPage.css";
 import { gsap } from "gsap";
 import SearchedItem from "./SearchedItem.js";
 export default function SearchPage({ searched }) {
-  const description = `"Description"`;
   const modelRef = useRef();
   const sortDropdownRef = useRef(); 
-  const [serviceClicked, setServiceClicked] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false); // State to handle sort dropdown visibility
 
 

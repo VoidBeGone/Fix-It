@@ -45,9 +45,12 @@
 }
 
 .SPReviews{
-    padding:10px;
+    margin-top:10px;
     flex-shrink:0;
-    font-weight:bold;
+    width:200px;
+    height:40px;
+    background:url("../media/stars.svg") repeat-x;
+    background-size:contain;
 }
 
 .SPDescription {
