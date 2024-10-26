@@ -37,7 +37,7 @@ app.use(function (req, res, next) {
 });
 
 const isAuthenticated = function (req, res, next) {
-	if (!req.session.id) return res.status(401).end("access denied, not logged in");
+	if (!req.session.username) return res.status(401).end("access denied, not logged in");
 	next();
 };
 
@@ -159,11 +159,11 @@ app.post('/signin',
                 }
     
                 // Start a session if the password is valid
-                req.session.id = usr._id;
+                req.session.username = usr._id;
                 res.setHeader(
                     "Set-Cookie",
                     [
-                        cookie.serialize("id", id, {
+                        cookie.serialize("id", usr._id, {
                             path: "/",
                             maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
                         }),
