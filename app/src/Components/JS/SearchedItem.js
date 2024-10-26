@@ -18,11 +18,12 @@ export default function SearchedItem({results, someuserid, address}){
         setServiceClicked(false);
       };
 
+      console.log(results);
       
     return(
     <div>
         {serviceClicked && <ServicePage keepServicePage={resetServiceClick} results={results} someuserid={someuserid} address={address}/>}
-        <div className="SearchPageContentContainer" onClick={setterServiceClick} serviced={results.id}>
+        <div className="SearchPageContentContainer" onClick={setterServiceClick} results={results}>
         <div className="SPCCTitle">{title}</div>
         <div className="SPCCHor">
           <div className="SPCCImage"></div>

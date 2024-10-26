@@ -62,10 +62,10 @@ export default function ServicePage({keepServicePage, results,someuserid, addres
           document.removeEventListener("mousedown", onClicked);
         };
       }, [keepServicePage, serviceSchedule]); 
-    
+    console.log(results);
     return(
         <>
-        {serviceSchedule && <ScheduleModal closeModal = {resetServiceSchedule} serviceID={results.id} someuserid={someuserid} address={address}/>}
+        {serviceSchedule && <ScheduleModal closeModal = {resetServiceSchedule} results={results} someuserid={someuserid} address={address}/>}
         <div className = "ServicePage">
             <div className="ServicePageContainer" ref={modelRef} serviced={results.id}>
                 <div className = "SPTitle">{title}</div>
