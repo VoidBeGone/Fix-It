@@ -9,7 +9,7 @@ export default function Landing() {
     const [loading, setLoading] = useState(true); // Track loading state
     const [error, setError] = useState(null); // Track error state
 
-    const stages = ["In Progress", "Payment Pending", "Payment Received", "Completed"];
+    const stages = ["In Progress", "Payment In Progress", "Payment Received", "Completed"];
 
     useEffect(() => {
         async function loadJobs() {
@@ -55,15 +55,15 @@ export default function Landing() {
                     ) : error ? (
                         <p className="ErrorMessage">{error}</p>
                     ) : jobs.length > 0 ? (
-                        jobs.map((job) => (
+                        jobs.map((jobData) => (
                             <LandingItem
-                                key={job.id}
-                                title={job.title}
-                                client={job.client}
-                                date={job.date}
-                                type={job.type}
-                                location={job.location}
-                                stage={job.stage}
+                                key={jobData.jobRequest_id}
+                                title={jobData.job.title}
+                                client={jobData.client.profile.firstName + jobData.client.profile.lastName}
+                                date={jobData.jobRequest.date}
+                                type={jobData.job.description}
+                                location={jobData.job.location}
+                                stage={jobData.jobRequest.status}
                             />
                         ))
                     ) : (

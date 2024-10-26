@@ -16,9 +16,16 @@ export function getId() {
     "$1",
   );
 }
+export function getUserType() {
+  return document.cookie.replace(
+    /(?:(?:^|.*;\s*)type\s*\=\s*([^;]*).*$)|^.*$/,
+    "$1",
+  );
+}
 export function isLoggedIn() {
   return getId() != '';
 }
+
 
 function App() {
   const [searched, setterSearched] = React.useState(false);
@@ -30,8 +37,8 @@ function App() {
   const [address, setterAddress] = React.useState("none");
   const [paymentOpen, setterPayment] = React.useState(false);
   const [UserReviewStatus, setURS] = React.useState(false);
-  const userOrcon = false;  //cookie here true if contractor
-  const someuserid = "";
+  const userOrcon = getUserType() === 'contractor';  //cookie here true if contractor
+  const someuserid = getId();
 
   const setServicePage = () =>{setterServicePage(true);};
   const resetcon = ()=>{setterServicePage(false);};

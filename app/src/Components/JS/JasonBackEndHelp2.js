@@ -4,13 +4,21 @@
 
 export default function serviceQuery(someuserid, setSearchResults){
     fetch('/api/me/jobs')
-        .then((jobs) => {
-            setSearchResults(jobs);
-        })
-        .catch((err) => {
-            console.error('Fetch error:', err);
+    .then((res) => {
+        // Check if the response is OK (status code in the range 200-299)
+        if (!res.ok) {
+            throw new Error('Network response was not ok');
         }
-    );
+        return res.json(); // Return the promise to chain the next then
+    })
+    .then((data) => {
+        setSearchResults(data); // Set the resolved data as search results
+    })
+    .catch((err) => {
+        console.error('Fetch error:', err); // Log the error
+        setSearchResults([]); // Set search results to an empty array in case of an error
+    });
+
 
     return;
     

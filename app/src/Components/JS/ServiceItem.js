@@ -3,9 +3,9 @@ import React from "react";
 
 export default function ServiceItem({ results, setPayment, setCurrentService, setUserReview }) {
   const Title = results.title;
-  const Description = results.Description;
-  const Date = results.Date;
-  const Progress = results.Progress;
+  const Description = results.description;
+  const Date = results.date;
+  const Progress = results.status;
 
   // Helper function for setting up payment
   const helper2 = () => {

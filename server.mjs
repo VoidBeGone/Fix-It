@@ -12,6 +12,7 @@ import {User} from './models/userModel.mjs';
 import {Job} from './models/jobModel.mjs'
 import {JobRequest} from './models/jobRequestModel.mjs';
 import {Review} from './models/reviewModel.mjs'
+import { ClientEncryption } from 'mongodb';
 
 dotenv.config();
 
@@ -197,6 +198,10 @@ app.post('/signin',
                         cookie.serialize("name", usr.profile.firstName + ' ' + usr.profile.lastName, {
                             path: "/",
                             maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
+                        }),
+                        cookie.serialize("type", usr.userType, {
+                            path: "/",
+                            maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
                         })
                     ]
                 );
@@ -224,10 +229,41 @@ app.get("/signout/", isAuthenticated, function (req, res, next) {
             cookie.serialize("name", "", {
                 path: "/",
                 maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
+            }),
+            cookie.serialize("type", "", {
+                path: "/",
+                maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
             })
         ]
 	);
 	res.status(200).end("signed out");
+});
+
+app.put('/api/jobs/update-date', async (req, res) => {
+    try {
+        const result = await JobRequest.updateMany({}, { $set: { date: Date.now() } });
+        res.json({
+            message: `${result.modifiedCount} jobs updated.`,
+            updatedCount: result.modifiedCount,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error updating job dates");
+    }
+});
+
+app.put('/api/job-requests/update-status', async (req, res) => {
+    try {
+        const result = await JobRequest.updateMany({}, { $set: { status: 'In Progress' } });
+
+        res.json({
+            message: `${result.modifiedCount} job requests updated to "In Progress".`,
+            updatedCount: result.modifiedCount,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error updating job request statuses");
+    }
 });
 
 app.get('/api/me', isAuthenticated, function(req, res, next) {
@@ -241,6 +277,7 @@ app.get('/api/me', isAuthenticated, function(req, res, next) {
             email: usr.email,
             userType: usr.userType
         }
+        console.log(data);
         res.json(data);
     }).catch(err => {
         console.log(err);
@@ -331,32 +368,58 @@ app.post('/api/jobs/:jid', isClient,
     }
 );   
 
+
+
 app.get('/api/me/jobs', isAuthenticated, async (req, res) => {
-    User.findById(req.session.uid).exec()
-    .then(usr => {
-        if (!usr) res.status(404).end("how are you not found if you're logged in?");
+    try {
+        const usr = await User.findById(req.session.uid).exec();
+        if (!usr) {
+            return res.status(404).end("how are you not found if you're logged in?");
+        }
+
+        const jobStatus = req.query.q || ''; // Get the job status from query parameters
+
         switch(usr.userType) {
             case 'client':
-                JobRequest.find({clientId: req.session.uid}).exec()
-                .then((jobs) => {
-                    res.json(jobs);
-                }).catch(err => {
-                    return res.status(500).end("error jobs");
-                })
-                break;
+                const clientJobs = await JobRequest.find({ clientId: req.session.uid }).exec();
+                return res.json(clientJobs); // Send the retrieved job requests
+
             case 'contractor':
-                Job.find({contractorId: req.session.uid}).exec()
-                .then((jobs) => {
-                    res.json(jobs);
-                }).catch(err => {
-                    return res.status(500).end("error jobs");
-                })
-                break;
+                // Find all jobs associated with the contractor
+                const jobs = await Job.find({ contractorId: req.session.uid }).exec();
+                const jobIds = jobs.map(job => job._id); // Extract the job IDs
+
+                // Now find job requests that match the job IDs
+                let query = { jobId: { $in: jobIds } }; // Use the job IDs to filter job requests
+                if (jobStatus) query.status = jobStatus; // Filter by status if provided
+
+                const jobRequests = await JobRequest.find(query).exec(); // Fetch the job requests
+
+                const data = await Promise.all(jobRequests.map(async (jbr) => {
+                    const job = await Job.findById(jbr.jobId).exec();
+                    const client = await User.findById(jbr.clientId).exec();
+                    return {
+                        jobRequest: jbr, // Use jbr instead of jobRequest for clarity
+                        job,
+                        client
+                    }; 
+                }));
+
+                // Now you can return or use `data`
+                res.json(data); // Send the combined data as response
+
+                return res.json(data); // Send the retrieved job requests
+
             default:
-                console.error('user type is bad')
+                console.error('user type is bad');
+                return res.status(400).end("Invalid user type.");
         }
-    });
+    } catch (err) {
+        console.error(err); // Log the error for debugging
+        return res.status(500).end("error jobs");
+    }
 });
+
 
 app.get('/api/jobs/search', async (req, res) => {
     try {

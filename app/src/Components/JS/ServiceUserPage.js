@@ -55,6 +55,7 @@ export default function SearcherUserPage({
     setLoading(true);
     serviceQuery(someuserid, (results) => {
       setServiceResults(Array.isArray(results) ? results : []);
+      console.log(results);
       setLoading(false);
     });
   }, [someuserid]);

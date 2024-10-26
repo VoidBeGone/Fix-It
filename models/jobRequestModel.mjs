@@ -16,9 +16,17 @@ const jobRequestSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ['pending', 'accepted', 'rejected'],
-        default: 'pending'
+        enum: ['In Progress', 'accepted', 'rejected'],
+        default: 'In Progress'
     },
+    date: {
+        type: Date,
+        default: () => Date.now()
+    },
+    location: {
+        type: String,
+        required: true
+    }
 })
 
 export const JobRequest = mongoose.model('JobRequest', jobRequestSchema);
