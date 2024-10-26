@@ -12,6 +12,7 @@ export default function ServiceItem({results}){
             <div className = "SUPTitle">{Title}</div>
             <div className="SUPDescription">Description: {Description}</div>
             <div className ="SUPDate">Time: {Date}</div>
+            <div className ="SUPProgress">Progress: {Progress}</div>
             <div className="ApproveDecline">
             <div className = "Approve"></div>
             <div className = "Decline"></div>

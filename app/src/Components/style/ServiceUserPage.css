@@ -51,7 +51,7 @@
     color: #333;
 }
 
-.SUPDescription, .SUPDate {
+.SUPDescription, .SUPDate, .SUPProgress{
     color: #555;
     font-size: 1rem; /* Adjust font size for readability */
     margin-bottom: 5px;
