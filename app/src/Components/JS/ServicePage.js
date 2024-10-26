@@ -65,7 +65,7 @@ export default function ServicePage({keepServicePage, results}){
     
     return(
         <>
-        {serviceSchedule && <ScheduleModal closeModal = {resetServiceSchedule}/>}
+        {serviceSchedule && <ScheduleModal closeModal = {resetServiceSchedule} serviceID={results.id}/>}
         <div className = "ServicePage">
             <div className="ServicePageContainer" ref={modelRef} serviced={results.id}>
                 <div className = "SPTitle">{title}</div>
