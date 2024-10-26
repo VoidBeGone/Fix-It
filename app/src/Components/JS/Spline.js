@@ -1,6 +1,5 @@
 import Spline from '@splinetool/react-spline';
-import { useRef, useState } from 'react';
-import { gsap } from 'gsap';
+import { useRef } from 'react';
 
 export default function SplineElement() {
   const wrenchRef = useRef(null);
