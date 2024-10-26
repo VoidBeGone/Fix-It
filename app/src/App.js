@@ -16,6 +16,7 @@ function App() {
   const [searchedValue, setSearchValue] = React.useState("search");
   const [signedin, settersignedin] = React.useState(false);
   const [svp, setterServicePage] = React.useState(false);
+  const [address, setterAddress] = React.useState("none");
   
   const userOrcon = false;  //cookie here true if contractor
   const someuserid = "";
@@ -56,9 +57,9 @@ function App() {
     <div>
     {/*<FastCube/>*/}
     <Header setHome={setHome} setAuth={setAuth} resetAuth ={resetAuth} resetBackHome={resetBackHome} searched={searched} resetSearched ={resetSearched} settersignedin={setsignin} signedin={signedin} setServicePage={setServicePage} resetcon={resetcon} userOrcon={userOrcon}/>
-    {!userOrcon && !svp && backhome && <Home authentication={authentication} backhome={backhome} setSearched={setSearched} setSearchValue={setSearchValue}/>} 
+    {!userOrcon && !svp && backhome && <Home authentication={authentication} backhome={backhome} setSearched={setSearched} setSearchValue={setSearchValue} setterAddress={setterAddress}/>} 
     {!userOrcon && !svp && authentication && <SearchBar searched={searchedValue} onSearchSubmit={setSearched} setSearchValue ={setSearchValue}/>}
-    {!userOrcon && !svp && searched && <SearchPage searched = {searchedValue} authentication={authentication} someuserid={someuserid}/>}
+    {!userOrcon && !svp && searched && <SearchPage searched = {searchedValue} authentication={authentication} someuserid={someuserid} address={address}/>}
     {!userOrcon && svp && <SearcherUserPage setHome={setHome} backhome={backhome} resetcon={resetcon} someuserid={someuserid}/>}
     </div>
 

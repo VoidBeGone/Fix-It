@@ -2,7 +2,7 @@
 
 
 //this place where I need to get data 
-export default function searchQuery(searchResult, setSearchedResults){
+export default function searchQuery(searchResult, address, setSearchedResults){
    //jason implement here thanks 
 
 

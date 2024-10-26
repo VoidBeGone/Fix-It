@@ -3,7 +3,7 @@ import "../style/ServicePage.css";
 import ScheduleModal from "./ScheduleModal.js";
 import {gsap} from "gsap";
  
-export default function ServicePage({keepServicePage, results,someuserid}){
+export default function ServicePage({keepServicePage, results,someuserid, address}){
 
 
     const SERVICEID = results.id; 
@@ -65,7 +65,7 @@ export default function ServicePage({keepServicePage, results,someuserid}){
     
     return(
         <>
-        {serviceSchedule && <ScheduleModal closeModal = {resetServiceSchedule} serviceID={results.id} someuserid={someuserid}/>}
+        {serviceSchedule && <ScheduleModal closeModal = {resetServiceSchedule} serviceID={results.id} someuserid={someuserid} address={address}/>}
         <div className = "ServicePage">
             <div className="ServicePageContainer" ref={modelRef} serviced={results.id}>
                 <div className = "SPTitle">{title}</div>

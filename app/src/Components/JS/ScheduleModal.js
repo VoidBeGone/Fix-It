@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import "../style/home.css";
 
-function ScheduleModal({ closeModal,serviceID,someuserid}) {
+function ScheduleModal({ closeModal,serviceID,someuserid, address}) {
   const modalRef = useRef();
 
   // Function to animate the modal out
@@ -57,6 +57,7 @@ function ScheduleModal({ closeModal,serviceID,someuserid}) {
   //JASON IMPLMEENT HERE 
   const handleSchedule = () => {
     const userid =someuserid;
+    //you also ahve address
     const serviceid = serviceID;
     const selectedDate = document.getElementById("date").value;
     const selectedTime = document.getElementById("time").value;
@@ -66,6 +67,7 @@ function ScheduleModal({ closeModal,serviceID,someuserid}) {
     console.log("ID", serviceid);
     console.log("Selected Date:", selectedDate);
     console.log("Selected Time:", selectedTime);
+    console.log("address:", address);
 
     handleClose();
   };
