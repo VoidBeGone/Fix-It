@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../style/SearchPage.css";
-import ServicePage from "./ServicePage.js";
 import { gsap } from "gsap";
-
+import SearchedItem from "./SearchedItem.js";
 export default function SearchPage({ searched }) {
   const description = `"Description"`;
   const modelRef = useRef();
@@ -19,14 +18,6 @@ export default function SearchPage({ searched }) {
       { opacity: 1, duration: 0.2, ease: "none" }
     );
   }, [searched]);
-
-  const setterServiceClick = () => {
-    setServiceClicked(true);
-  };
-
-  const resetServiceClick = () => {
-    setServiceClicked(false);
-  };
 
   const toggleSortOptions = () => {
     if (isSortOpen) {
@@ -56,7 +47,6 @@ export default function SearchPage({ searched }) {
 
   return (
     <div className="background">
-      {serviceClicked && <ServicePage keepServicePage={resetServiceClick} />}
       <div className="SearchPage" ref={modelRef}>
         <div className="SPSort" onClick={toggleSortOptions}>
           Sort
@@ -79,14 +69,7 @@ export default function SearchPage({ searched }) {
 
         <div className="SearchPageContainer">
           <div className="SearchPageContent">
-            <div className="SearchPageContentContainer" onClick={setterServiceClick}>
-              <div className="SPCCTitle">Title</div>
-              <div className="SPCCHor">
-                <div className="SPCCImage"></div>
-                <div className="SPCCDescription">{description}</div>
-              </div>
-              <div className="SPCCReviews"></div>
-            </div>
+            <SearchedItem searched={searched}/>
           </div>
         </div>
       </div>
