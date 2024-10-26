@@ -1,6 +1,7 @@
 import "../style/ServiceUserPage.css";
 import React from "react";
 import {gsap} from "gsap";
+import ServiceItem from "./ServiceItem";
 
 
 export default function SearcherUserPage({setHome, backhome, resetcon}){
@@ -31,33 +32,9 @@ export default function SearcherUserPage({setHome, backhome, resetcon}){
     return (
       <div className = "SearchUserPage">
         <div className = "SUPHolderContainer"ref={modelRef}>
-            <div className = "SUPContent" >
-                <div className = "SUPTitle">Title</div>
-                <div className="SUPDescription">Description: </div>
-                <div className ="SUPDate">Time: </div>
-                <div className="ApproveDecline">
-                    <div className = "Approve"></div>
-                    <div className = "Decline"></div>
-                </div>
-            </div>
-            <div className = "SUPContent" >
-                <div className = "SUPTitle">Title</div>
-                <div className="SUPDescription">Description: </div>
-                <div className ="SUPDate">Time: </div>
-                <div className="ApproveDecline">
-                    <div className = "Approve"></div>
-                    <div className = "Decline"></div>
-                </div>
-            </div>
-            <div className = "SUPContent" >
-                <div className = "SUPTitle">Title</div>
-                <div className="SUPDescription">Description: </div>
-                <div className ="SUPDate">Time: </div>
-                <div className="ApproveDecline">
-                    <div className = "Approve"></div>
-                    <div className = "Decline"></div>
-                </div>
-            </div>
+            <ServiceItem setHome={setHome} backhome={backhome} resetcon={resetcon}/>
+            <ServiceItem setHome={setHome} backhome={backhome} resetcon={resetcon}/>
+            <ServiceItem setHome={setHome} backhome={backhome} resetcon={resetcon}/>
         </div>
       </div>  
     );
