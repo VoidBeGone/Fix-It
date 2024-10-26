@@ -20,8 +20,8 @@ const runCommand = (command, options = {}) => {
 // Define the sequence of tasks to be performed
 const buildProject = async () => {
   try {
-    console.log("Running npm ci in the root directory...");
-    await runCommand('npm ci');
+    console.log("Running npm i in the root directory...");
+    await runCommand('npm i');
 
     console.log("Starting development server...");
     runCommand('npm run dev'); // Run dev server without waiting (it stays open)
@@ -29,8 +29,8 @@ const buildProject = async () => {
     console.log("Changing directory to app/src...");
     const appSrcPath = path.join(__dirname, 'app', 'src');
     
-    console.log("Running npm ci in app/src...");
-    await runCommand('npm ci', { cwd: appSrcPath });
+    console.log("Running npm i in app/src...");
+    await runCommand('npm i', { cwd: appSrcPath });
 
     console.log("Starting app in app/src...");
     await runCommand('npm start', { cwd: appSrcPath });
