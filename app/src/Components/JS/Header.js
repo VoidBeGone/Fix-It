@@ -5,12 +5,19 @@ import MenuPopOut from "./MenuPopOut.js";
 import SignInForm from "./SignInForm.js"
 import SignUpForm from "./SignUpForm.js";
 import ProfileForm from "./ProfileForm.js";
-function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearched,settersignedin,signedin, setcon, resetcon}) {
+import AddService from "./AddService.js";
+function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearched,settersignedin,signedin, setServicePage, resetcon, userOrcon}) {
     const [popOutClicked, setPopOutClicked] = React.useState(false);
     const [login, setterLogin] = React.useState(false);
     const [signin, setterSignin] = React.useState(false);
     const [profileUser, setterPU] = React.useState(false);
-
+    const [addservice, setterAddService] = React.useState(false);
+    const setService= ()=>{
+        setterAddService(true);
+    };
+    const resetService = () =>{
+        setterAddService(false);
+    };
     const setPU = () =>{
         setterPU(true);
     };
@@ -65,7 +72,8 @@ function Header({setHome, setAuth, resetAuth,resetBackHome, searched, resetSearc
             {profileUser && <ProfileForm resetPU={resetPU} setAuth={setAuth} />}
             {login && <SignInForm resetLogin = {resetLogin} settersignedin={settersignedin}  setAuth={setAuth} resetAuth={resetAuth} />}
             {signin && <SignUpForm resetSignup = {resetSignUp} settersignedin={settersignedin} setAuth={setAuth} resetAuth={resetAuth}/>}
-            {popOutClicked && <MenuPopOut resetPopOut={resetPopOut} setLogin = {setLogin} setSignup = {setSignUp} setcon={setcon} resetcon={resetcon} resetBackHome={resetBackHome}/>}
+            {popOutClicked && <MenuPopOut resetPopOut={resetPopOut} setLogin = {setLogin} setSignup = {setSignUp} setServicePage={setServicePage} resetcon={resetcon} resetBackHome={resetBackHome} setService={setService}/>}
+            {addservice && userOrcon && <AddService resetService={resetService}/> }
             <div className="Header">
                 <div className="HeaderLeft">
                     <div className="headerMenu" onClick={setPopOut}></div>

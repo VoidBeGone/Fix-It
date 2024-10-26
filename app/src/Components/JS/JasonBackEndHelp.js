@@ -9,3 +9,4 @@ export default function searchQuery(searchResult, setSearchedResults){
     setSearchedResults([{id:"", title:"Title", image:"", description:"Penis", review:""}]); //make sure its an ARRAY
     //OR IT RETURN EMPTY OR ELSE CODE CRASH
 };
+

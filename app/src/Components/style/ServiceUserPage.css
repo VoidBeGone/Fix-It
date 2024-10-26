@@ -3,62 +3,112 @@
 }
 
 .SearchUserPage {
-    position: fixed;
+    position: relative; /* Allows the page to scroll */
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 100vw; 
+    align-items: flex-start; /* Aligns items from the top */
+    width: 100%; 
     background-color: #f5f5f5;
-    height: 100vh; 
-    padding: 20px;
-    
+    min-height: 100vh; /* Ensures it covers the full viewport height */
+    padding: 100px 20px 20px; /* Adds top padding to avoid header overlap */
+    overflow-y: visible; /* Allows the entire page to scroll */
 }
+
 
 .SUPHolderContainer {
     width: 90vw; 
+    max-width: 1200px; /* Limits the maximum width to avoid stretching on large screens */
     margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Adds space between service cards */
 }
 
 .SUPContent {
-    background-color: rgb(255, 255, 255);
-    margin-bottom: 20px;
+    background-color: #ffffff;
     padding: 20px;
-    border-radius: 8px;
-    width: 100%;
-    box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.4);
-    border-radius: 20px;
+    border-radius: 12px;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
     min-height: 150px;  
-    max-height: 200px;
-    overflow: auto;
+    max-height: 250px; /* Adds a maximum height */
+    overflow: auto; /* Allows scrolling within each card if the content overflows */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.SUPTitle, .SUPDescription, .SUPDate {
-    color: black;
-    font-size: 18px;
+.SUPContent:hover {
+    transform: translateY(-5px);
+    box-shadow: 4px 8px 12px rgba(0, 0, 0, 0.3); /* Slight elevation on hover */
 }
 
 .SUPTitle {
-    font-size: 24px;
+    font-size: 1.5rem; /* Responsive font size */
     font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.SUPDescription, .SUPDate {
+    color: #555;
+    font-size: 1rem; /* Adjust font size for readability */
+    margin-bottom: 5px;
 }
 
 .ApproveDecline {
     display: flex;
     justify-content: flex-end;
+    gap: 15px; /* Adds spacing between the approve and decline buttons */
 }
 
-.Approve{
-    background:url("../media/approved.svg") no-repeat;
-    background-size:contain;
-    width:100px;
-    height:100px;
-    cursor:pointer;
-}
-
-.Decline{
-    background:url("../media/deny.svg") no-repeat;
+.Approve, .Decline {
     background-size: contain;
-    width:100px;
-    height:100px;
-    cursor:pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.Approve {
+    background-image: url("../media/approved.svg");
+}
+
+.Decline {
+    background-image: url("../media/deny.svg");
+}
+
+.Approve:hover, .Decline:hover {
+    transform: scale(1.1); /* Slightly enlarges on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .SUPHolderContainer {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .SUPContent {
+        padding: 15px;
+    }
+
+    .Approve, .Decline {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .SUPTitle {
+        font-size: 1.2rem;
+    }
+
+    .Approve, .Decline {
+        width: 40px;
+        height: 40px;
+    }
 }
