@@ -65,3 +65,24 @@ h2 {
 .SignUpBtn:hover {
     background-color: #17a860;
 }
+
+.SignUpInput select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .SignUpInput select:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+    outline: none;
+  }
+
+  .SignUpInput select:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }

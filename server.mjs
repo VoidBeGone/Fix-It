@@ -76,7 +76,8 @@ app.post('/signup',
             }).catch((err) => { throw new Error(err.message); });
         }),
         expval.body('userType').custom(async type => {
-            if (type !== 'client' || type !== 'contractor') {
+            if (type !== 'client' && type !== 'contractor') {
+                console.log(type);
                 throw new Error('invalid user type');
             }
         }),
@@ -94,7 +95,8 @@ app.post('/signup',
         const password = req.body.password;
         const email = req.body.email;
         const userType = req.body.userType;
-        const name = req.body.firstName + req.body.lastName;
+        const firstName = req.body.firstName
+        const lastName = req.body.lastName;
 
         try {
             // Generate salt and hash the password
@@ -108,7 +110,7 @@ app.post('/signup',
                 email: email, 
                 userType: userType,
                 profile: {
-                    name, bio: 'THIS IS BIO'
+                    firstName, lastName, bio: 'THIS IS BIO'
                 }
             });
 
