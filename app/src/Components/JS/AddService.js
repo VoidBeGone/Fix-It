@@ -34,21 +34,41 @@ function AddService({ resetService }) {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Service Information Submitted:', serviceInfo);
-    // Here, you'd typically send this data to the backend or store it
-    // Reset the form after submission
-    setServiceInfo({
-      title: '',
-      description: '',
-      category: '',
-      price: '',
-      location: '',
-      image: null, // Reset image field
-    });
-    animateOut(resetService);
+  
+    // Prepare form data without the image field
+    const formData = {
+      title: serviceInfo.title,
+      description: serviceInfo.description,
+      date: serviceInfo.date,
+      service: serviceInfo.category,
+      location: serviceInfo.location,
+    };
+  
+    try {
+      const response = await fetch('/api/jobs/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Job created successfully:", result);
+        animateOut(()=>{
+          resetService();
+        });
+      } else {
+        console.error("Failed to create job:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
+  
 
   // Animate out function
   const animateOut = (callback) => {
@@ -158,6 +178,7 @@ function AddService({ resetService }) {
           </div>
 
           {/* Image upload */}
+{/*}
           <div className="AddServiceInput">
             <label htmlFor="image">Upload Service Image</label>
             <input
@@ -168,13 +189,13 @@ function AddService({ resetService }) {
             />
           </div>
 
-          {/* Display uploaded image */}
+          {/* Display uploaded image *}
           {serviceInfo.image && (
             <div className="AddServiceImage">
               <img src={serviceInfo.image} alt="Service Preview" />
             </div>
           )}
-
+              */}
           <button type="submit" className="AddServiceBtn">Add Service</button>
         </form>
       </div>

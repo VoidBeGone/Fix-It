@@ -2,8 +2,8 @@ import "../style/ServiceUserPage.css";
 import React from "react";
 
 export default function ServiceItem({ results, setPayment, setCurrentService, setUserReview }) {
-  const Title = results.title;
-  const Description = results.description;
+  const title = results.title
+  const description = results._id
   const Date = results.date;
   const Progress = results.status;
 
@@ -21,8 +21,8 @@ export default function ServiceItem({ results, setPayment, setCurrentService, se
 
   return (
     <div className="SUPContent">
-      <div className="SUPTitle">{Title}</div>
-      <div className="SUPDescription">Description: {Description}</div>
+      <div className="SUPTitle">Title:{title}</div>
+      <div className="SUPDescription">ID: {description}</div>
       <div className="SUPDate">Time: {Date}</div>
       <div className="SUPProgress">Progress: {Progress}</div>
       <div className="ApproveDecline">

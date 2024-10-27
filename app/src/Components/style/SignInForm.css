@@ -51,7 +51,7 @@ h2 {
 .SignInBtn {
     width: 100%;
     padding: 12px;
-    background-color: #1dbf73;
+    background-color: #191919;
     color: white;
     border: none;
     border-radius: 5px;
@@ -61,6 +61,6 @@ h2 {
 }
 
 .SignInBtn:hover {
-    background-color: #17a860;
+    background-color: #4b4b4b;
 }
 
